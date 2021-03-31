@@ -36,7 +36,8 @@ public class ProductTypeModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductTypeModel that = (ProductTypeModel) o;
-        return id == that.id && Objects.equals(type, that.type);
+        //ToDo Delete id comparison
+        return /*id == that.id &&*/ Objects.equals(type, that.type);
     }
 
     @Override
@@ -51,5 +52,6 @@ public class ProductTypeModel {
 
     public void setProductsById(Collection<ProductModel> productsById) {
         this.productsById = productsById;
+
     }
 }
