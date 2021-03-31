@@ -7,17 +7,20 @@ import java.util.Objects;
 @Entity
 @Table(name = "brand", schema = "test1")
 public class BrandModel {
-    private int id;
+
+    @Id
+    @GeneratedValue
+    private long id;
     private String brand;
     private Collection<ProductModel> productsById;
 
     @Id
-    @Column(name = "id")
-    public int getId() {
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -31,17 +34,19 @@ public class BrandModel {
         this.brand = brand;
     }
 
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, brand);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BrandModel that = (BrandModel) o;
         return id == that.id && Objects.equals(brand, that.brand);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, brand);
     }
 
     @OneToMany(mappedBy = "brandByBrandId")
