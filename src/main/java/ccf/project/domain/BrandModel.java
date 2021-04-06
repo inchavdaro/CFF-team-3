@@ -7,20 +7,18 @@ import java.util.Objects;
 @Entity
 @Table(name = "brand", schema = "test1")
 public class BrandModel {
-
-    @Id
-    @GeneratedValue
-    private long id;
+    private Integer id;
     private String brand;
     private Collection<ProductModel> productsById;
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long getId() {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -46,7 +44,7 @@ public class BrandModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BrandModel that = (BrandModel) o;
-        return id == that.id && Objects.equals(brand, that.brand);
+        return Objects.equals(brand, that.brand);
     }
 
     @OneToMany(mappedBy = "brandByBrandId")
