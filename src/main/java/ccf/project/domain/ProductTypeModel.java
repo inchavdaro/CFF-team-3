@@ -7,17 +7,18 @@ import java.util.Objects;
 @Entity
 @Table(name = "product_type", schema = "test1")
 public class ProductTypeModel {
-    private int id;
+    private Integer id;
     private String type;
     private Collection<ProductModel> productsById;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

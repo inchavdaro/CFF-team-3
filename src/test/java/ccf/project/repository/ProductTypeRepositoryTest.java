@@ -21,8 +21,12 @@ public class ProductTypeRepositoryTest {
     void insertIntoDatabase(){
         ProductTypeModel pm = new ProductTypeModel();
         pm.setType("videocard3");
+        ProductTypeModel pm2 = new ProductTypeModel();
+        pm2.setType("videocard5");
         productTypeRepository.save(pm);
+        productTypeRepository.save(pm2);
         Assertions.assertEquals(productTypeRepository.findByType("videocard3"), pm);
+        Assertions.assertEquals(productTypeRepository.findByType("videocard5"), pm2);
     }
 
     @Test
