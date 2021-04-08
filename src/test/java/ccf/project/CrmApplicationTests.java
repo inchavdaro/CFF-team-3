@@ -16,14 +16,7 @@ class CrmApplicationTests {
 
 	@Test
 	void contextLoads() {
-//		UserModel u1 = new UserModel();
-//		u1.setUsername("Ivan");
-//		u1.setPass("admin");
-//		u1.setRole(1);
-//		userRepository.save(u1);
-		UserModel ivan = userRepository.findByUsername("Ivan");
-		Assertions.assertNotNull(ivan);
-		Assertions.assertEquals(ivan.getPass(), "admin");
+		
 	}
 
 }
