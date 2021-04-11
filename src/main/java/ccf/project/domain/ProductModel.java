@@ -1,24 +1,42 @@
 package ccf.project.domain;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "product", schema = "test1")
+@Table(name = "product")
 public class ProductModel {
-    private int id;
-    //private int brandId;
-    private String model;
-    //private int typeId;
-    private String description;
-    private double price;
-    private Long quantity;
-    private BrandModel brandByBrandId;
-    private ProductTypeModel productTypeByTypeId;
-    private Collection<SaleModel> salesById;
 
     @Id
+    @GeneratedValue
+    private int id;
+
+    @NotEmpty
+    @Column(length = 50)
+    private String model;
+
+    private String description;
+
+    @NotNull
+    private double price;
+
+    private Long quantity;
+
+    @ManyToOne
+    @JoinColumn(name = "brand_id", referencedColumnName = "id", nullable = false)
+    private BrandModel brandByBrandId;
+
+    @ManyToOne
+    @JoinColumn(name = "type_id", referencedColumnName = "id", nullable = false)
+    private ProductTypeModel productTypeByTypeId;
+
+    @OneToMany(mappedBy = "productByProductId")
+    private Collection<SaleModel> salesById;
+
     @Column(name = "id")
     public int getId() {
         return id;
@@ -28,18 +46,6 @@ public class ProductModel {
         this.id = id;
     }
 
-//    @Basic
-//    @Column(name = "brand_id")
-//    public int getBrandId() {
-//        return brandId;
-//    }
-
-//    public void setBrandId(int brandId) {
-//        this.brandId = brandId;
-//    }
-
-    @Basic
-    @Column(name = "model")
     public String getModel() {
         return model;
     }
@@ -48,18 +54,6 @@ public class ProductModel {
         this.model = model;
     }
 
-//    @Basic
-//    @Column(name = "type_id")
-//    public int getTypeId() {
-//        return typeId;
-//    }
-//
-//    public void setTypeId(int typeId) {
-//        this.typeId = typeId;
-//    }
-
-    @Basic
-    @Column(name = "description")
     public String getDescription() {
         return description;
     }
@@ -68,8 +62,6 @@ public class ProductModel {
         this.description = description;
     }
 
-    @Basic
-    @Column(name = "price")
     public double getPrice() {
         return price;
     }
@@ -78,8 +70,6 @@ public class ProductModel {
         this.price = price;
     }
 
-    @Basic
-    @Column(name = "quantity")
     public Long getQuantity() {
         return quantity;
     }
@@ -101,8 +91,7 @@ public class ProductModel {
         return Objects.hash(id, model, description, price, quantity);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "brand_id", referencedColumnName = "id", nullable = false)
+
     public BrandModel getBrandByBrandId() {
         return brandByBrandId;
     }
@@ -111,8 +100,7 @@ public class ProductModel {
         this.brandByBrandId = brandByBrandId;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "type_id", referencedColumnName = "id", nullable = false)
+
     public ProductTypeModel getProductTypeByTypeId() {
         return productTypeByTypeId;
     }
@@ -121,7 +109,6 @@ public class ProductModel {
         this.productTypeByTypeId = productTypeByTypeId;
     }
 
-    @OneToMany(mappedBy = "productByProductId")
     public Collection<SaleModel> getSalesById() {
         return salesById;
     }

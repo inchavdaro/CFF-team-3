@@ -1,9 +1,6 @@
 package ccf.project;
 
-import ccf.project.domain.UserModel;
 import ccf.project.repository.UserRepository;
-import org.hibernate.service.spi.InjectService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +13,7 @@ class CrmApplicationTests {
 
 	@Test
 	void contextLoads() {
-		
+
 	}
 
 }

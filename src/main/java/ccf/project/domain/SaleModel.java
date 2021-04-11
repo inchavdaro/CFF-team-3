@@ -1,25 +1,40 @@
 package ccf.project.domain;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "sale", schema = "test1")
+@Table(name = "sale")
 public class SaleModel {
-    private int id;
-//    private int salesmanId;
-//    private int productId;
-//    private int clientId;
-    private Timestamp date;
-    private Double salePrice;
-    private Integer quantity;
-    private SalesmanModel salesmanBySalesmanId;
-    private ProductModel productByProductId;
-    private ClientModel clientByClientId;
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue
+    private int id;
+
+    @NotNull
+    private Timestamp date;
+
+    @NotNull
+    private Double salePrice;
+
+    @NotNull
+    private Integer quantity;
+
+    @ManyToOne
+    @JoinColumn(name = "salesman_id", referencedColumnName = "id", nullable = false)
+    private SalesmanModel salesmanBySalesmanId;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
+    private ProductModel productByProductId;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id", referencedColumnName = "id", nullable = false)
+    private ClientModel clientByClientId;
+
     public int getId() {
         return id;
     }
@@ -28,38 +43,6 @@ public class SaleModel {
         this.id = id;
     }
 
-//    @Basic
-//    @Column(name = "salesman_id")
-//    public int getSalesmanId() {
-//        return salesmanId;
-//    }
-//
-//    public void setSalesmanId(int salesmanId) {
-//        this.salesmanId = salesmanId;
-//    }
-//
-//    @Basic
-//    @Column(name = "product_id")
-//    public int getProductId() {
-//        return productId;
-//    }
-//
-//    public void setProductId(int productId) {
-//        this.productId = productId;
-//    }
-//
-//    @Basic
-//    @Column(name = "client_id")
-//    public int getClientId() {
-//        return clientId;
-//    }
-//
-//    public void setClientId(int clientId) {
-//        this.clientId = clientId;
-//    }
-
-    @Basic
-    @Column(name = "date")
     public Timestamp getDate() {
         return date;
     }
@@ -68,8 +51,6 @@ public class SaleModel {
         this.date = date;
     }
 
-    @Basic
-    @Column(name = "sale_price")
     public Double getSalePrice() {
         return salePrice;
     }
@@ -78,8 +59,6 @@ public class SaleModel {
         this.salePrice = salePrice;
     }
 
-    @Basic
-    @Column(name = "quantity")
     public Integer getQuantity() {
         return quantity;
     }
@@ -101,8 +80,6 @@ public class SaleModel {
         return Objects.hash(id, date, salePrice, quantity);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "salesman_id", referencedColumnName = "id", nullable = false)
     public SalesmanModel getSalesmanBySalesmanId() {
         return salesmanBySalesmanId;
     }
@@ -111,8 +88,6 @@ public class SaleModel {
         this.salesmanBySalesmanId = salesmanBySalesmanId;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
     public ProductModel getProductByProductId() {
         return productByProductId;
     }
@@ -121,8 +96,6 @@ public class SaleModel {
         this.productByProductId = productByProductId;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "client_id", referencedColumnName = "id", nullable = false)
     public ClientModel getClientByClientId() {
         return clientByClientId;
     }

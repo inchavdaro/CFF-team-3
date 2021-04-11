@@ -1,20 +1,33 @@
 package ccf.project.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "salesman", schema = "test1")
+@Table(name = "salesman")
 public class SalesmanModel {
-    private int id;
-    private String fullname;
-    private String email;
-    private Collection<SaleModel> salesById;
-    private Collection<UserModel> usersById;
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue
+    private int id;
+
+    @NotEmpty
+    @Column(length = 50)
+    private String fullname;
+
+    @Email
+    private String email;
+
+    @OneToMany(mappedBy = "salesmanBySalesmanId")
+    private Collection<SaleModel> salesById;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(referencedColumnName = "id", nullable = false)
+    private UserModel user;
+
     public int getId() {
         return id;
     }
@@ -23,8 +36,6 @@ public class SalesmanModel {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "fullname")
     public String getFullname() {
         return fullname;
     }
@@ -33,8 +44,6 @@ public class SalesmanModel {
         this.fullname = fullname;
     }
 
-    @Basic
-    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -56,7 +65,6 @@ public class SalesmanModel {
         return Objects.hash(id, fullname, email);
     }
 
-    @OneToMany(mappedBy = "salesmanBySalesmanId")
     public Collection<SaleModel> getSalesById() {
         return salesById;
     }
@@ -65,12 +73,11 @@ public class SalesmanModel {
         this.salesById = salesById;
     }
 
-    @OneToMany(mappedBy = "salesmanBySalesmanId")
-    public Collection<UserModel> getUsersById() {
-        return usersById;
+    public UserModel getUsersById() {
+        return user;
     }
 
-    public void setUsersById(Collection<UserModel> usersById) {
-        this.usersById = usersById;
+    public void setUsersById(UserModel usersById) {
+        this.user = usersById;
     }
 }
