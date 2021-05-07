@@ -1,4 +1,4 @@
-package ccf.project.service.impl;
+package ccf.project.service;
 
 import ccf.project.domain.BrandModel;
 import ccf.project.service.BrandService;
@@ -10,10 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.transaction.Transactional;
 
 @SpringBootTest
-public class DefaultBrandServiceTest
+public class BrandServiceTest
 {
     @Autowired
-    DefaultBrandService brandService;
+    BrandService brandService;
 
     @Test
     @Transactional
@@ -22,9 +22,9 @@ public class DefaultBrandServiceTest
         BrandModel toBeInserted = new BrandModel();
         BrandModel toBeInserted2 = new BrandModel();
         BrandModel toBeInserted3 = new BrandModel();
-        toBeInserted.setBrand("ASUS1");
-        toBeInserted2.setBrand("ASUS2");
-        toBeInserted3.setBrand("ASUS3");
+        toBeInserted.setName("ASUS1");
+        toBeInserted2.setName("ASUS2");
+        toBeInserted3.setName("ASUS3");
         brandService.insert(toBeInserted);
         brandService.insert(toBeInserted2);
         brandService.insert(toBeInserted3);
@@ -47,9 +47,9 @@ public class DefaultBrandServiceTest
         BrandModel toBeInserted = new BrandModel();
         BrandModel toBeInserted2 = new BrandModel();
         BrandModel toBeInserted3 = new BrandModel();
-        toBeInserted.setBrand("ASUS1");
-        toBeInserted2.setBrand("ASUS2");
-        toBeInserted3.setBrand("ASUS3");
+        toBeInserted.setName("ASUS1");
+        toBeInserted2.setName("ASUS2");
+        toBeInserted3.setName("ASUS3");
         brandService.insert(toBeInserted);
         brandService.insert(toBeInserted2);
         brandService.insert(toBeInserted3);

@@ -1,42 +1,42 @@
 package ccf.project.domain;
 
+
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "brand", schema = "test1")
+@Table(name = "brand")
 public class BrandModel {
-    private Integer id;
-    private String brand;
-    private Collection<ProductModel> productsById;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    public Integer getId() {
+    @GeneratedValue
+    private int id;
+
+    @NotEmpty
+    @Column(length = 30)
+    private String name;
+
+    @OneToMany(mappedBy = "brandByBrandId")
+    private Collection<ProductModel> productsById;
+
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "brand")
-    public String getBrand() {
-        return brand;
+    public String getName() {
+        return name;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, brand);
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -44,10 +44,14 @@ public class BrandModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BrandModel that = (BrandModel) o;
-        return Objects.equals(brand, that.brand);
+        return id == that.id && Objects.equals(name, that.name);
     }
 
-    @OneToMany(mappedBy = "brandByBrandId")
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
+
     public Collection<ProductModel> getProductsById() {
         return productsById;
     }
