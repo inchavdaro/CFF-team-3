@@ -17,7 +17,7 @@ public class DefaultBrandServiceTest
 
     @Test
     @Transactional
-    public void testSaveAndFindBrand(){
+    public void testInsertAndFindBrand(){
 
         BrandModel toBeInserted = new BrandModel();
         BrandModel toBeInserted2 = new BrandModel();
@@ -25,16 +25,56 @@ public class DefaultBrandServiceTest
         toBeInserted.setBrand("ASUS1");
         toBeInserted2.setBrand("ASUS2");
         toBeInserted3.setBrand("ASUS3");
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + String.valueOf(toBeInserted.getId()) + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + String.valueOf(toBeInserted2.getId()) + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         brandService.insert(toBeInserted);
         brandService.insert(toBeInserted2);
         brandService.insert(toBeInserted3);
 
         BrandModel queryResult = brandService.findByBrand("ASUS1");
+        BrandModel queryResult2 = brandService.findByBrand("ASUS2");
+        BrandModel queryResult3 = brandService.findByBrand("ASUS3");
+        Assertions.assertNotEquals(null, queryResult);
+        Assertions.assertNotEquals(null, queryResult2);
+        Assertions.assertNotEquals(null, queryResult3);
 
-        if(queryResult == null) System.out.println("sad");
-        else System.out.println("notsad");
-        //Assertions.assertNotEquals(null, queryResult);
+        Assertions.assertTrue(toBeInserted.equals(queryResult));
+        Assertions.assertTrue(toBeInserted2.equals(queryResult2));
+        Assertions.assertTrue(toBeInserted3.equals(queryResult3));
     }
+    @Test
+    @Transactional
+    public void testInsertAndDeleteBrand(){
+
+        BrandModel toBeInserted = new BrandModel();
+        BrandModel toBeInserted2 = new BrandModel();
+        BrandModel toBeInserted3 = new BrandModel();
+        toBeInserted.setBrand("ASUS1");
+        toBeInserted2.setBrand("ASUS2");
+        toBeInserted3.setBrand("ASUS3");
+        brandService.insert(toBeInserted);
+        brandService.insert(toBeInserted2);
+        brandService.insert(toBeInserted3);
+
+        BrandModel queryResult = brandService.findByBrand("ASUS1");
+        BrandModel queryResult2 = brandService.findByBrand("ASUS2");
+        BrandModel queryResult3 = brandService.findByBrand("ASUS3");
+
+        Assertions.assertTrue(toBeInserted.equals(queryResult));
+        Assertions.assertTrue(toBeInserted2.equals(queryResult2));
+        Assertions.assertTrue(toBeInserted3.equals(queryResult3));
+
+        brandService.deleteByBrand("ASUS1");
+        brandService.deleteByBrand("ASUS2");
+        brandService.deleteByBrand("ASUS3");
+
+        BrandModel queryResultAfterDelete = brandService.findByBrand("ASUS1");
+        BrandModel queryResult2AfterDelete = brandService.findByBrand("ASUS2");
+        BrandModel queryResult3AfterDelete = brandService.findByBrand("ASUS3");
+
+
+        Assertions.assertEquals(null, queryResultAfterDelete);
+        Assertions.assertEquals(null, queryResult2AfterDelete);
+        Assertions.assertEquals(null, queryResult3AfterDelete);
+    }
+
+
 }
