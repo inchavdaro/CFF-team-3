@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @SpringBootTest
@@ -35,7 +36,7 @@ public class ProductTypeRepositoryTest {
         ProductTypeModel pm = new ProductTypeModel();
         pm.setType("videocard");
         productTypeRepository.save(pm);
-        ProductTypeModel list = productTypeRepository.deleteByType("videocard");
+        productTypeRepository.deleteByType("videocard");
         Assertions.assertEquals(productTypeRepository.findByType("videocard"), null);
     }
 }

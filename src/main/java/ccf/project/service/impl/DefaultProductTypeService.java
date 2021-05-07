@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DefaultProductTypeService implements ProductTypeService {
@@ -19,8 +20,8 @@ public class DefaultProductTypeService implements ProductTypeService {
     }
 
     @Override
-    public ProductTypeModel deleteByName(String name) {
-        return productTypeRepository.deleteByType(name);
+    public Optional<ProductTypeModel> deleteByName(String name) { //Returns one object or null because of unique in table
+            return productTypeRepository.deleteByType(name).stream().findAny();
     }
 
     @Override

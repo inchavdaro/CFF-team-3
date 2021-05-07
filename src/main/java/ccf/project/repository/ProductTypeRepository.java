@@ -13,5 +13,5 @@ public interface ProductTypeRepository extends JpaRepository<ProductTypeModel, L
 
     List<ProductTypeModel> findAll();
 
-    ProductTypeModel deleteByType(String type);
+    List<ProductTypeModel> deleteByType(String type);
 }
