@@ -2,8 +2,10 @@ package ccf.project.service;
 
 import ccf.project.domain.BrandModel;
 
+import java.util.Optional;
+
 public interface BrandService {
-    BrandModel findByBrand(String brand);
-    Long deleteByBrand(String brand);
-    public void insert(BrandModel brandModel);
+    Optional<BrandModel> findByName(String brand);
+    Long deleteByName(String brand);
+    BrandModel insert(BrandModel brandModel);
 }

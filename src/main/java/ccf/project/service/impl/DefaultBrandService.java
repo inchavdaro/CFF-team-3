@@ -8,6 +8,8 @@ import ccf.project.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class DefaultBrandService implements BrandService {
 
@@ -15,20 +17,20 @@ public class DefaultBrandService implements BrandService {
     BrandRepository brandRepository;
 
     @Override
-    public BrandModel findByBrand(String brand)
+    public Optional<BrandModel> findByName(String brand)
     {
-        return brandRepository.findByBrand(brand);
+        return brandRepository.findByName(brand);
     }
 
     @Override
-    public Long deleteByBrand(String brand)
+    public Long deleteByName(String brand)
     {
-        return brandRepository.deleteByBrand(brand);
+        return brandRepository.deleteByName(brand);
     }
 
     @Override
-    public void insert(BrandModel brandModel){
-        brandRepository.save(brandModel);
+    public BrandModel insert(BrandModel brandModel){
+        return brandRepository.save(brandModel);
     }
 
 

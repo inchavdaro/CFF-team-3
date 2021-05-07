@@ -1,13 +1,13 @@
 package ccf.project.service;
 
 import ccf.project.domain.BrandModel;
-import ccf.project.service.BrandService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @SpringBootTest
 public class BrandServiceTest
@@ -29,16 +29,18 @@ public class BrandServiceTest
         brandService.insert(toBeInserted2);
         brandService.insert(toBeInserted3);
 
-        BrandModel queryResult = brandService.findByBrand("ASUS1");
-        BrandModel queryResult2 = brandService.findByBrand("ASUS2");
-        BrandModel queryResult3 = brandService.findByBrand("ASUS3");
-        Assertions.assertNotEquals(null, queryResult);
-        Assertions.assertNotEquals(null, queryResult2);
-        Assertions.assertNotEquals(null, queryResult3);
+        Optional<BrandModel> queryResult = brandService.findByName("ASUS1");
+        Optional<BrandModel> queryResult2 = brandService.findByName("ASUS2");
+        Optional<BrandModel> queryResult3 = brandService.findByName("ASUS3");
 
-        Assertions.assertEquals(toBeInserted, queryResult);
-        Assertions.assertEquals(toBeInserted2, queryResult2);
-        Assertions.assertEquals(toBeInserted3, queryResult3);
+        Assertions.assertTrue(queryResult.isPresent());
+        Assertions.assertTrue(queryResult2.isPresent());
+        Assertions.assertTrue(queryResult3.isPresent());
+
+
+        Assertions.assertEquals(toBeInserted, queryResult.get());
+        Assertions.assertEquals(toBeInserted2, queryResult2.get());
+        Assertions.assertEquals(toBeInserted3, queryResult3.get());
     }
     @Test
     @Transactional
@@ -54,26 +56,28 @@ public class BrandServiceTest
         brandService.insert(toBeInserted2);
         brandService.insert(toBeInserted3);
 
-        BrandModel queryResult = brandService.findByBrand("ASUS1");
-        BrandModel queryResult2 = brandService.findByBrand("ASUS2");
-        BrandModel queryResult3 = brandService.findByBrand("ASUS3");
-
-        Assertions.assertEquals(toBeInserted, queryResult);
-        Assertions.assertEquals(toBeInserted2, queryResult2);
-        Assertions.assertEquals(toBeInserted3, queryResult3);
-
-        brandService.deleteByBrand("ASUS1");
-        brandService.deleteByBrand("ASUS2");
-        brandService.deleteByBrand("ASUS3");
-
-        BrandModel queryResultAfterDelete = brandService.findByBrand("ASUS1");
-        BrandModel queryResult2AfterDelete = brandService.findByBrand("ASUS2");
-        BrandModel queryResult3AfterDelete = brandService.findByBrand("ASUS3");
+        Optional<BrandModel> queryResult = brandService.findByName("ASUS1");
+        Optional<BrandModel> queryResult2 = brandService.findByName("ASUS2");
+        Optional<BrandModel> queryResult3 = brandService.findByName("ASUS3");
 
 
-        Assertions.assertEquals(null, queryResultAfterDelete);
-        Assertions.assertEquals(null, queryResult2AfterDelete);
-        Assertions.assertEquals(null, queryResult3AfterDelete);
+        Assertions.assertEquals(toBeInserted, queryResult.get());
+        Assertions.assertEquals(toBeInserted2, queryResult2.get());
+        Assertions.assertEquals(toBeInserted3, queryResult3.get());
+
+        brandService.deleteByName("ASUS1");
+        brandService.deleteByName("ASUS2");
+        brandService.deleteByName("ASUS3");
+
+        Optional<BrandModel> queryResultAfterDelete = brandService.findByName("ASUS1");
+        Optional<BrandModel> queryResult2AfterDelete = brandService.findByName("ASUS2");
+        Optional<BrandModel> queryResult3AfterDelete = brandService.findByName("ASUS3");
+
+
+        Assertions.assertTrue(queryResultAfterDelete.isEmpty());
+        Assertions.assertTrue(queryResult2AfterDelete.isEmpty());
+        Assertions.assertTrue(queryResult3AfterDelete.isEmpty());
+
     }
 
 
