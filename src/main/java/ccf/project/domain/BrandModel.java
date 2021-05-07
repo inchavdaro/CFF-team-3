@@ -16,7 +16,7 @@ public class BrandModel {
     private int id;
 
     @NotEmpty
-    @Column(length = 30)
+    @Column(length = 30, unique = true)
     private String name;
 
     @OneToMany(mappedBy = "brandByBrandId")

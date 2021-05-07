@@ -1,4 +1,4 @@
-package ccf.project.service.impl;
+package ccf.project.service;
 
 import org.springframework.boot.test.context.SpringBootTest;
 
