@@ -19,7 +19,7 @@ public class DefaultProductTypeService implements ProductTypeService {
     }
 
     @Override
-    public List<ProductTypeModel> deleteByName(String name) {
+    public ProductTypeModel deleteByName(String name) {
         return productTypeRepository.deleteByType(name);
     }
 

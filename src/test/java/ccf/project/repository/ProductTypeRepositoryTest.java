@@ -32,8 +32,10 @@ public class ProductTypeRepositoryTest {
     @Test
     @Transactional
     void deleteFromDatabase(){
-        List<ProductTypeModel> list = productTypeRepository.deleteByType("videocard");
+        ProductTypeModel pm = new ProductTypeModel();
+        pm.setType("videocard");
+        productTypeRepository.save(pm);
+        ProductTypeModel list = productTypeRepository.deleteByType("videocard");
         Assertions.assertEquals(productTypeRepository.findByType("videocard"), null);
-        Assertions.assertEquals(2, list.size());
     }
 }

@@ -1,19 +1,24 @@
 package ccf.project.domain;
 
+import net.bytebuddy.implementation.bind.MethodDelegationBinder;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "product_type", schema = "test1")
+@Table(name = "product_type")
 public class ProductTypeModel {
+    @Id
+    @GeneratedValue
     private Integer id;
+
+    @Column(unique = true)
     private String type;
+
+    @OneToMany(mappedBy = "productTypeByTypeId")
     private Collection<ProductModel> productsById;
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id")
     public Integer getId() {
         return id;
     }
@@ -22,8 +27,6 @@ public class ProductTypeModel {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "type")
     public String getType() {
         return type;
     }
@@ -37,8 +40,8 @@ public class ProductTypeModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductTypeModel that = (ProductTypeModel) o;
-        //ToDo Delete id comparison
-        return /*id == that.id &&*/ Objects.equals(type, that.type);
+
+        return Objects.equals(type, that.type);
     }
 
     @Override
@@ -46,13 +49,12 @@ public class ProductTypeModel {
         return Objects.hash(id, type);
     }
 
-    @OneToMany(mappedBy = "productTypeByTypeId")
+
     public Collection<ProductModel> getProductsById() {
         return productsById;
     }
 
     public void setProductsById(Collection<ProductModel> productsById) {
         this.productsById = productsById;
-
     }
 }
