@@ -5,14 +5,18 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "product_type", schema = "test1")
+@Table(name = "product_type")
 public class ProductTypeModel {
-    private int id;
-    private String type;
-    private Collection<ProductModel> productsById;
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue
+    private int id;
+
+    private String type;
+
+    @OneToMany(mappedBy = "productTypeByTypeId")
+    private Collection<ProductModel> productsById;
+
     public int getId() {
         return id;
     }
@@ -21,8 +25,6 @@ public class ProductTypeModel {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "type")
     public String getType() {
         return type;
     }
@@ -44,7 +46,7 @@ public class ProductTypeModel {
         return Objects.hash(id, type);
     }
 
-    @OneToMany(mappedBy = "productTypeByTypeId")
+
     public Collection<ProductModel> getProductsById() {
         return productsById;
     }
