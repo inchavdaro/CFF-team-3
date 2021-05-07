@@ -36,9 +36,9 @@ public class DefaultBrandServiceTest
         Assertions.assertNotEquals(null, queryResult2);
         Assertions.assertNotEquals(null, queryResult3);
 
-        Assertions.assertTrue(toBeInserted.equals(queryResult));
-        Assertions.assertTrue(toBeInserted2.equals(queryResult2));
-        Assertions.assertTrue(toBeInserted3.equals(queryResult3));
+        Assertions.assertEquals(toBeInserted, queryResult);
+        Assertions.assertEquals(toBeInserted2, queryResult2);
+        Assertions.assertEquals(toBeInserted3, queryResult3);
     }
     @Test
     @Transactional
@@ -58,9 +58,9 @@ public class DefaultBrandServiceTest
         BrandModel queryResult2 = brandService.findByBrand("ASUS2");
         BrandModel queryResult3 = brandService.findByBrand("ASUS3");
 
-        Assertions.assertTrue(toBeInserted.equals(queryResult));
-        Assertions.assertTrue(toBeInserted2.equals(queryResult2));
-        Assertions.assertTrue(toBeInserted3.equals(queryResult3));
+        Assertions.assertEquals(toBeInserted, queryResult);
+        Assertions.assertEquals(toBeInserted2, queryResult2);
+        Assertions.assertEquals(toBeInserted3, queryResult3);
 
         brandService.deleteByBrand("ASUS1");
         brandService.deleteByBrand("ASUS2");
