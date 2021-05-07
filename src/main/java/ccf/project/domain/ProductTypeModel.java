@@ -1,5 +1,7 @@
 package ccf.project.domain;
 
+import net.bytebuddy.implementation.bind.MethodDelegationBinder;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -7,21 +9,21 @@ import java.util.Objects;
 @Entity
 @Table(name = "product_type")
 public class ProductTypeModel {
-
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
 
+    @Column(unique = true)
     private String type;
 
     @OneToMany(mappedBy = "productTypeByTypeId")
     private Collection<ProductModel> productsById;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -38,7 +40,8 @@ public class ProductTypeModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductTypeModel that = (ProductTypeModel) o;
-        return id == that.id && Objects.equals(type, that.type);
+
+        return Objects.equals(type, that.type);
     }
 
     @Override

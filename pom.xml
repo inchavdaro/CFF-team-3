@@ -75,6 +75,7 @@
 		<profile>
 			<id>test</id>
 			<properties>
+				<activeByDefault>false</activeByDefault>
 				<activatedProperties>test</activatedProperties>
 			</properties>
 		</profile>
