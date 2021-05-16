@@ -15,11 +15,11 @@ public class UserModel {
     private int id;
 
     @Size(max = 20)
-    @Column(length = 20)
+    @Column(length = 20, unique = true)
     private String username;
 
-    @Size(min=4)
-    @Column(length = 30)
+    @Size(min = 4)
+    @Column(length = 100)
     private String pass;
 
     private UserRole role;
@@ -48,13 +48,11 @@ public class UserModel {
         this.pass = pass;
     }
 
-    public UserRole getRole()
-    {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(UserRole role)
-    {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 
@@ -68,6 +66,6 @@ public class UserModel {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, pass,  role);
+        return Objects.hash(id, username, pass, role);
     }
 }
