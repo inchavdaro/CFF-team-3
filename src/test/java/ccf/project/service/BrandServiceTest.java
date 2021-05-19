@@ -25,9 +25,9 @@ public class BrandServiceTest
         toBeInserted.setName("ASUS1");
         toBeInserted2.setName("ASUS2");
         toBeInserted3.setName("ASUS3");
-        brandService.insert(toBeInserted);
-        brandService.insert(toBeInserted2);
-        brandService.insert(toBeInserted3);
+        brandService.save(toBeInserted);
+        brandService.save(toBeInserted2);
+        brandService.save(toBeInserted3);
 
         Optional<BrandModel> queryResult = brandService.findByName("ASUS1");
         Optional<BrandModel> queryResult2 = brandService.findByName("ASUS2");
@@ -52,9 +52,9 @@ public class BrandServiceTest
         toBeInserted.setName("ASUS1");
         toBeInserted2.setName("ASUS2");
         toBeInserted3.setName("ASUS3");
-        brandService.insert(toBeInserted);
-        brandService.insert(toBeInserted2);
-        brandService.insert(toBeInserted3);
+        brandService.save(toBeInserted);
+        brandService.save(toBeInserted2);
+        brandService.save(toBeInserted3);
 
         Optional<BrandModel> queryResult = brandService.findByName("ASUS1");
         Optional<BrandModel> queryResult2 = brandService.findByName("ASUS2");
