@@ -7,8 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.List;
 
 @Repository
 public interface SaleRepository extends JpaRepository<SaleModel, Long> {
-    Collection<SaleModel> findByClient(ClientModel client, Pageable pageable);
+    List<SaleModel> findByClientByClientId(ClientModel client, Pageable pageable);
 }
