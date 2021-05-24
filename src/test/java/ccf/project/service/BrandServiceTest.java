@@ -17,7 +17,7 @@ public class BrandServiceTest
 
     @Test
     @Transactional
-    public void testInsertAndFindBrand(){
+    public void testSaveAndFindBrand(){
 
         BrandModel toBeInserted = new BrandModel();
         BrandModel toBeInserted2 = new BrandModel();

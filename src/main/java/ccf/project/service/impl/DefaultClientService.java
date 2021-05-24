@@ -7,6 +7,7 @@ import ccf.project.repository.SaleRepository;
 import ccf.project.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @Service
 public class DefaultClientService implements ClientService {
+
 
     ClientRepository clientRepository;
     SaleRepository saleRepository;
@@ -26,14 +28,21 @@ public class DefaultClientService implements ClientService {
 
 
     @Override
-    public Page<ClientModel> findAll(Pageable pageable) {
-        return clientRepository.findAll(pageable);
+    public Page<ClientModel> getPageOfClients(int pageNumber, int clientsPerPage) {
+        return clientRepository.findAll(PageRequest.of(pageNumber, clientsPerPage));
     }
 
     @Override
-    public Page<SaleModel> getSales(Pageable pageable) {
-        return saleRepository.findAll(pageable);
+    public Page<SaleModel> getPageOfSales(String bulstat, int pageNumber, int salesPerPage) {
+        Optional<ClientModel> client = findByBulstat(bulstat);
+        if(client.isPresent()) {
+
+            return saleRepository.findByClientByClientId(client.get(), PageRequest.of(pageNumber, salesPerPage));
+        }
+        return Page.empty();
     }
+
+
 
     @Override
     public Optional<ClientModel> findById(int id) {

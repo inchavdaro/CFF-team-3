@@ -1,30 +1,42 @@
 package ccf.project.controller;
 
 import ccf.project.domain.ClientModel;
+import ccf.project.domain.SaleModel;
 import ccf.project.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Collection;
 
 @Controller
 @RequestMapping("/clients")
 public class ClientController {
 
-    @Autowired
+
     ClientService clientService;
+    int currentPage;
+
+    @Autowired
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
+        this.currentPage = 0;
+    }
+
 
     @GetMapping(value = "/{bulstat}", produces = "application/json")
     public ResponseEntity<ClientModel> findByBulstat(@PathVariable String bulstat){
         return ResponseEntity.of(clientService.findByBulstat(bulstat));
     }
 
-    //clientService.getNextPage() ? kakto i za sales ?
     @GetMapping(produces = "application/json")
-    public ResponseEntity<Collection<ClientModel>> findAll(){
-        return null;
+    public Page<ClientModel> getPageOfClients(@RequestBody int pageNumber, @RequestBody int clientsPerPage){
+        return clientService.getPageOfClients(pageNumber, clientsPerPage);
+    }
+
+    @GetMapping(value = "/{bulstat}/sales", produces = "application/json")
+    public Page<SaleModel> getNextPageOfSales(@PathVariable String bulstat, @RequestBody int pageNumber, @RequestBody int salesPerPage){
+        return clientService.getPageOfSales(bulstat, pageNumber, salesPerPage);
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")

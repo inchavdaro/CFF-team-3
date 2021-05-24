@@ -5,14 +5,15 @@ import ccf.project.domain.ClientModel;
 import ccf.project.domain.SaleModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
 
 public interface ClientService {
 
-    Page<ClientModel> findAll(Pageable pageable);
+    Page<ClientModel> getPageOfClients(int pageNumber, int clientsPerPage);
 
-    Page<SaleModel> getSales(Pageable pageable);
+    Page<SaleModel> getPageOfSales(String bulstat, int pageNumber, int salesPerPage);
 
     Optional<ClientModel> findById(int id);
 

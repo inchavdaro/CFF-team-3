@@ -1,7 +1,6 @@
 package ccf.project.repository;
 
 import ccf.project.domain.ClientModel;
-import org.springframework.boot.autoconfigure.integration.IntegrationProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
