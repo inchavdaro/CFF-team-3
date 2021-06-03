@@ -1,9 +1,13 @@
 package ccf.project.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,12 +23,13 @@ public class SalesmanModel {
     private String fullname;
 
     @Email
+    @Column(unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "salesmanBySalesmanId")
-    private Collection<SaleModel> salesById;
+    @OneToMany(mappedBy = "salesmanBySalesmanId", fetch = FetchType.LAZY)
+    private List<SaleModel> sales;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id", nullable = false)
     private UserModel user;
 
@@ -65,19 +70,19 @@ public class SalesmanModel {
         return Objects.hash(id, fullname, email);
     }
 
-    public Collection<SaleModel> getSalesById() {
-        return salesById;
+    public List<SaleModel> getSalesById() {
+        return sales;
     }
 
-    public void setSalesById(Collection<SaleModel> salesById) {
-        this.salesById = salesById;
+    public void setSalesById(List<SaleModel> salesById) {
+        this.sales = salesById;
     }
 
-    public UserModel getUsersById() {
-        return user;
+    public int getUserId() {
+        return user.getId();
     }
 
-    public void setUsersById(UserModel usersById) {
-        this.user = usersById;
+    public void setUser(UserModel user) {
+        this.user = user;
     }
 }
