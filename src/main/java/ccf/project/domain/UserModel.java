@@ -1,20 +1,29 @@
 package ccf.project.domain;
 
+import ccf.project.domain.enums.UserRole;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user", schema = "test1")
+@Table(name = "user")
 public class UserModel {
-    private int id;
-    private String username;
-    private String pass;
-   // private Integer salesmanId;
-    private int role;
-    private SalesmanModel salesmanBySalesmanId;
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue
+    private int id;
+
+    @Size(max = 20)
+    @Column(length = 20, unique = true)
+    private String username;
+
+    @Size(min = 4)
+    @Column(length = 100)
+    private String pass;
+
+    private UserRole role;
+
     public int getId() {
         return id;
     }
@@ -23,8 +32,6 @@ public class UserModel {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "username")
     public String getUsername() {
         return username;
     }
@@ -33,8 +40,6 @@ public class UserModel {
         this.username = username;
     }
 
-    @Basic
-    @Column(name = "pass")
     public String getPass() {
         return pass;
     }
@@ -43,23 +48,11 @@ public class UserModel {
         this.pass = pass;
     }
 
-//    @Basic
-//    @Column(name = "salesman_id")
-//    public Integer getSalesmanId() {
-//        return salesmanId;
-//    }
-//
-//    public void setSalesmanId(Integer salesmanId) {
-//        this.salesmanId = salesmanId;
-//    }
-
-    @Basic
-    @Column(name = "role")
-    public int getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 
@@ -73,16 +66,6 @@ public class UserModel {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, pass,  role);
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "salesman_id", referencedColumnName = "id")
-    public SalesmanModel getSalesmanBySalesmanId() {
-        return salesmanBySalesmanId;
-    }
-
-    public void setSalesmanBySalesmanId(SalesmanModel salesmanBySalesmanId) {
-        this.salesmanBySalesmanId = salesmanBySalesmanId;
+        return Objects.hash(id, username, pass, role);
     }
 }

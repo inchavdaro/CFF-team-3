@@ -1,20 +1,33 @@
 package ccf.project.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "client", schema = "test1")
+@Table(name = "client")
 public class ClientModel {
-    private int id;
-    private String name;
-    private String address;
-    private String bulstat;
-    private Collection<SaleModel> salesById;
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue
+    private int id;
+
+    @NotEmpty
+    @Column(length = 30)
+    private String name;
+
+    @NotEmpty
+    @Column(length = 30)
+    private String address;
+
+    @NotEmpty
+    @Column(length = 30)
+    private String bulstat;
+
+    @OneToMany(mappedBy = "clientByClientId")
+    private Collection<SaleModel> salesById;
+
     public int getId() {
         return id;
     }
@@ -23,8 +36,7 @@ public class ClientModel {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name")
+
     public String getName() {
         return name;
     }
@@ -33,8 +45,7 @@ public class ClientModel {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "address")
+
     public String getAddress() {
         return address;
     }
@@ -43,8 +54,6 @@ public class ClientModel {
         this.address = address;
     }
 
-    @Basic
-    @Column(name = "bulstat")
     public String getBulstat() {
         return bulstat;
     }
@@ -66,7 +75,6 @@ public class ClientModel {
         return Objects.hash(id, name, address, bulstat);
     }
 
-    @OneToMany(mappedBy = "clientByClientId")
     public Collection<SaleModel> getSalesById() {
         return salesById;
     }

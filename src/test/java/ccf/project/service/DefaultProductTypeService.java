@@ -1,8 +1,9 @@
-package ccf.project;
+package ccf.project.service;
 
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CrmApplicationTests {
+public class DefaultProductTypeService {
+
 
 }

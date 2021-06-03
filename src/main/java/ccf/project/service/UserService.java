@@ -3,7 +3,15 @@ package ccf.project.service;
 
 import ccf.project.domain.UserModel;
 
+import java.util.Optional;
+
 public interface UserService
 {
-    UserModel getUserByName(String name);
+    Boolean saveUser(UserModel userModel);
+
+    Boolean deleteUser(String username);
+
+    Boolean changePassword(String username, String password, String newPassword);
+
+    Optional<UserModel> getUserByName(String username);
 }
