@@ -26,8 +26,8 @@ public class SalesmanModel {
     @Column(unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "salesmanBySalesmanId", fetch = FetchType.LAZY)
-    private List<SaleModel> sales;
+    @OneToMany(mappedBy = "salesman")
+    private Collection<SaleModel> sales;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id", nullable = false)
