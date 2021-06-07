@@ -14,9 +14,9 @@ import java.util.Optional;
 @Repository
 public interface SaleRepository extends JpaRepository<SaleModel, Long> {
 
-    Page<SaleModel> findByClientByClientId(ClientModel client, Pageable pageable);
+    Page<SaleModel> findByClient_Id(int id, Pageable pageable);
     Page<SaleModel> findByDate(Timestamp date, Pageable pageable);
     Optional<SaleModel> findById(int id);
     Long deleteById(int id);
-    Long deleteByClientByClientId(ClientModel clientModel);
+    Long deleteByClient(ClientModel clientModel);
 }

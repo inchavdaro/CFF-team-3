@@ -21,7 +21,7 @@ public class SalesmanModel {
     @Email
     private String email;
 
-    @OneToMany(mappedBy = "salesmanBySalesmanId")
+    @OneToMany(mappedBy = "salesman")
     private Collection<SaleModel> salesById;
 
     @OneToOne(cascade = CascadeType.ALL)

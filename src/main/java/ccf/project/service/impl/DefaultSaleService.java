@@ -24,8 +24,8 @@ public class DefaultSaleService implements SaleService {
 
 
     @Override
-    public Page<SaleModel> findByClient(ClientModel client, Pageable pageable) {
-        return saleRepository.findByClientByClientId(client, pageable);
+    public Page<SaleModel> findByClient(int clientId, Pageable pageable) {
+        return saleRepository.findByClient_Id(clientId, pageable);
     }
 
     @Override
@@ -50,6 +50,6 @@ public class DefaultSaleService implements SaleService {
 
     @Override
     public Long deleteByClient(ClientModel clientModel) {
-        return saleRepository.deleteByClientByClientId(clientModel);
+        return saleRepository.deleteByClient(clientModel);
     }
 }

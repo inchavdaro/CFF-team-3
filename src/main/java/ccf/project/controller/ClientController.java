@@ -30,14 +30,14 @@ public class ClientController {
     }
 
     @GetMapping(produces = "application/json")
-    public Page<ClientModel> getPageOfClients(@RequestBody int pageNumber, @RequestBody int clientsPerPage){
+    public Page<ClientModel> getPageOfClients(@RequestParam int pageNumber, @RequestParam int clientsPerPage){
         return clientService.getPageOfClients(pageNumber, clientsPerPage);
     }
-
-    @GetMapping(value = "/{bulstat}/sales", produces = "application/json")
-    public Page<SaleModel> getNextPageOfSales(@PathVariable String bulstat, @RequestBody int pageNumber, @RequestBody int salesPerPage){
-        return clientService.getPageOfSales(bulstat, pageNumber, salesPerPage);
-    }
+//part of salesController
+//    @GetMapping(value = "/{bulstat}/sales", produces = "application/json")
+//    public Page<SaleModel> getNextPageOfSales(@PathVariable String bulstat, @RequestBody int pageNumber, @RequestBody int salesPerPage){
+//        return clientService.getPageOfSales(bulstat, pageNumber, salesPerPage);
+//    }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<ClientModel> saveClient(@RequestBody ClientModel client){

@@ -25,7 +25,7 @@ public class ClientModel {
     @Column(length = 30, unique = true)
     private String bulstat;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "clientByClientId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
     private Collection<SaleModel> sales;
 
     public int getId() {

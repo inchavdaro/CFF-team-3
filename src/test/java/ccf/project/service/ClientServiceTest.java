@@ -2,6 +2,7 @@ package ccf.project.service;
 
 import ccf.project.domain.ClientModel;
 import ccf.project.domain.SaleModel;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,12 +20,57 @@ import java.util.concurrent.ArrayBlockingQueue;
 public class ClientServiceTest {
     @Autowired
     ClientService clientService;
+    @Autowired
+    SaleService saleService;
+
+
+    @BeforeEach
+    private void testSetup(){
+        ClientModel client1 = new ClientModel();
+        ClientModel client2 = new ClientModel();
+        ClientModel client3 = new ClientModel();
+        ClientModel client4 = new ClientModel();
+        client1.setBulstat("bulstat1");
+        client2.setBulstat("bulstat2");
+        client3.setBulstat("bulstat3");
+        client4.setBulstat("bulstat4");
+
+
+
+        Collection<SaleModel> sales = new ArrayList<>();
+
+        SaleModel sale1 = new SaleModel();
+        sale1.setSalePrice(10.0);
+        sale1.setClient(client1);
+        sales.add(sale1);
+        //saleService.save(sale1);
+        SaleModel sale2 = new SaleModel();
+        sale2.setSalePrice(11.0);
+        sale1.setClient(client1);
+        sales.add(sale2);
+        //saleService.save(sale2);
+        SaleModel sale3 = new SaleModel();
+        sale3.setSalePrice(12.0);
+        sale1.setClient(client1);
+        sales.add(sale3);
+        //saleService.save(sale3);
+        SaleModel sale4 = new SaleModel();
+        sale4.setSalePrice(13.0);
+        sale1.setClient(client1);
+        sales.add(sale4);
+        //saleService.save(sale4);
+
+        client1.setSales(sales);
+
+        clientService.save(client1);
+        clientService.save(client2);
+        clientService.save(client3);
+        clientService.save(client4);
+    }
 
     @Test
     @Transactional
     public void testSaveAndFindClient(){
-
-        testSetup();
 
         Page<ClientModel> clientsPage = clientService.getPageOfClients(0, 4);
         List<ClientModel> clientsList = clientsPage.getContent();
@@ -39,8 +85,6 @@ public class ClientServiceTest {
     @Transactional
     public void testSaveAndDeleteClient(){
 
-        testSetup();
-
         clientService.deleteByBulstat("bulstat1");
         clientService.deleteByBulstat("bulstat2");
         clientService.deleteByBulstat("bulstat3");
@@ -53,7 +97,6 @@ public class ClientServiceTest {
 //    @Test
 //    @Transactional
 //    public void testGetPageOfSales(){
-//        testSetup();
 //        Page<SaleModel> sales = clientService.getPageOfSales("bulstat1", 0, 4);
 //        List<SaleModel> salesList = sales.getContent();
 //        assertEquals(4, salesList.size());
@@ -68,37 +111,6 @@ public class ClientServiceTest {
 
 
 
-    private void testSetup(){
-        ClientModel client1 = new ClientModel();
-        ClientModel client2 = new ClientModel();
-        ClientModel client3 = new ClientModel();
-        ClientModel client4 = new ClientModel();
-        client1.setBulstat("bulstat1");
-        client2.setBulstat("bulstat2");
-        client3.setBulstat("bulstat3");
-        client4.setBulstat("bulstat4");
 
-        Collection<SaleModel> sales = new ArrayList<>();
-
-        SaleModel sale1 = new SaleModel();
-        sale1.setSalePrice(10.0);
-        sales.add(sale1);
-        SaleModel sale2 = new SaleModel();
-        sale1.setSalePrice(11.0);
-        sales.add(sale2);
-        SaleModel sale3 = new SaleModel();
-        sale1.setSalePrice(12.0);
-        sales.add(sale3);
-        SaleModel sale4 = new SaleModel();
-        sale1.setSalePrice(13.0);
-        sales.add(sale4);
-
-        client1.setSales(sales);
-
-        clientService.save(client1);
-        clientService.save(client2);
-        clientService.save(client3);
-        clientService.save(client4);
-    }
 }
 

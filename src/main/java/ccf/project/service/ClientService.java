@@ -13,7 +13,7 @@ public interface ClientService {
 
     Page<ClientModel> getPageOfClients(int pageNumber, int clientsPerPage);
 
-    Page<SaleModel> getPageOfSales(String bulstat, int pageNumber, int salesPerPage);
+ //   Page<SaleModel> getPageOfSales(String bulstat, int pageNumber, int salesPerPage);
 
     Optional<ClientModel> findById(int id);
 

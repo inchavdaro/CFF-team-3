@@ -34,7 +34,7 @@ public class ProductModel {
     @JoinColumn(name = "type_id", referencedColumnName = "id", nullable = false)
     private ProductTypeModel productTypeByTypeId;
 
-    @OneToMany(mappedBy = "productByProductId")
+    @OneToMany(mappedBy = "product")
     private Collection<SaleModel> salesById;
 
     @Column(name = "id")

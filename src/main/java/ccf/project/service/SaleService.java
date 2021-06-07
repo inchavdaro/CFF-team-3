@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import java.util.Optional;
 
 public interface SaleService {
-    Page<SaleModel> findByClient(ClientModel client, Pageable pageable);
+    Page<SaleModel> findByClient(int clientId, Pageable pageable);
     Page<SaleModel> findByDate(Timestamp date, Pageable pageable);
 
     //change int to Long?
