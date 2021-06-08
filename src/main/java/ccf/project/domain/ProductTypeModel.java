@@ -16,7 +16,7 @@ public class ProductTypeModel {
     @Column(unique = true)
     private String type;
 
-    @OneToMany(mappedBy = "productTypeByTypeId")
+    @OneToMany(mappedBy = "productType",fetch = FetchType.LAZY)
     private Collection<ProductModel> productsById;
 
     public Integer getId() {

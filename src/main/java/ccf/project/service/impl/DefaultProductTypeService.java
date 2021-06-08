@@ -15,7 +15,7 @@ public class DefaultProductTypeService implements ProductTypeService {
     ProductTypeRepository productTypeRepository;
 
     @Override
-    public ProductTypeModel getTypeByName(String name){
+    public Optional<ProductTypeModel> getTypeByName(String name){
         return productTypeRepository.findByType(name);
     }
 
@@ -25,10 +25,8 @@ public class DefaultProductTypeService implements ProductTypeService {
     }
 
     @Override
-    public ProductTypeModel insertType(String type) {
-        ProductTypeModel pm = new ProductTypeModel();
-        pm.setType(type);
-        return productTypeRepository.save(pm);
+    public ProductTypeModel insertType(ProductTypeModel type) {
+        return productTypeRepository.save(type);
     }
 
     @Override

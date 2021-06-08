@@ -19,7 +19,7 @@ public class BrandModel {
     @Column(length = 30, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "brandByBrandId")
+    @OneToMany(mappedBy = "brand")
     private Collection<ProductModel> productsById;
 
 
