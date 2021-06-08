@@ -1,7 +1,6 @@
 package ccf.project.controller;
 
 import ccf.project.domain.ClientModel;
-import ccf.project.domain.SaleModel;
 import ccf.project.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,29 +8,32 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Min;
+
 @Controller
 @RequestMapping("/clients")
 public class ClientController {
 
 
     ClientService clientService;
-    int currentPage;
 
     @Autowired
     public ClientController(ClientService clientService) {
         this.clientService = clientService;
-        this.currentPage = 0;
     }
 
 
     @GetMapping(value = "/{bulstat}", produces = "application/json")
-    public ResponseEntity<ClientModel> findByBulstat(@PathVariable String bulstat){
-        return ResponseEntity.of(clientService.findByBulstat(bulstat));
+    public ResponseEntity<ClientModel> getByBulstat(@PathVariable String bulstat){
+        return ResponseEntity.of(clientService.getByBulstat(bulstat));
     }
 
     @GetMapping(produces = "application/json")
-    public Page<ClientModel> getPageOfClients(@RequestParam int pageNumber, @RequestParam int clientsPerPage){
-        return clientService.getPageOfClients(pageNumber, clientsPerPage);
+    public ResponseEntity<Page<ClientModel>> getPageOfClients(@RequestParam @Min(0) Integer pageNumber, @RequestParam @Min(1) Integer clientsPerPage){
+        if(pageNumber != null && clientsPerPage != null){
+            return ResponseEntity.ok(clientService.getPageOfClients(pageNumber, clientsPerPage));
+        }
+        return ResponseEntity.ok(clientService.getAll());
     }
 //part of salesController
 //    @GetMapping(value = "/{bulstat}/sales", produces = "application/json")
@@ -40,8 +42,8 @@ public class ClientController {
 //    }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<ClientModel> saveClient(@RequestBody ClientModel client){
-        return ResponseEntity.ok(clientService.save(client));
+    public ResponseEntity<ClientModel> insertClient(@RequestBody ClientModel client){
+        return ResponseEntity.ok(clientService.insert(client));
     }
 
     @PutMapping("/{bulstat}")
