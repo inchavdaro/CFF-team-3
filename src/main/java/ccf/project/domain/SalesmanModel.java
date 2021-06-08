@@ -27,7 +27,7 @@ public class SalesmanModel {
     private String email;
 
     @OneToMany(mappedBy = "salesman")
-    private Collection<SaleModel> sales;
+    private List<SaleModel> sales;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id", nullable = false)
@@ -70,11 +70,11 @@ public class SalesmanModel {
         return Objects.hash(id, fullname, email);
     }
 
-    public List<SaleModel> getSalesById() {
+    public List<SaleModel> getSales() {
         return sales;
     }
 
-    public void setSalesById(List<SaleModel> salesById) {
+    public void setSales(List<SaleModel> salesById) {
         this.sales = salesById;
     }
 

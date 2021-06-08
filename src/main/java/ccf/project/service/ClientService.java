@@ -1,11 +1,7 @@
 package ccf.project.service;
 
-import ccf.project.domain.BrandModel;
 import ccf.project.domain.ClientModel;
-import ccf.project.domain.SaleModel;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
 

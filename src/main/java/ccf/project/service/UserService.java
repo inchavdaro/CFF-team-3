@@ -5,13 +5,38 @@ import ccf.project.domain.UserModel;
 
 import java.util.Optional;
 
-public interface UserService
-{
-    Boolean saveUser(UserModel userModel);
+public interface UserService {
+    /**
+     * Persists a User in the db
+     *
+     * @param userModel the user to be persisted
+     * @return if the operation was successful
+     */
+    Boolean insertUser(UserModel userModel);
 
+    /**
+     * Delete a User from the db
+     *
+     * @param username the username of the to be deleted User
+     * @return if the operation was successful
+     */
     Boolean deleteUser(String username);
 
+    /**
+     * Updates a User entry in db with new password if the correct old one provided
+     *
+     * @param username    the username of the user
+     * @param password    the current password of the user
+     * @param newPassword the new password of the user
+     * @return if the operation was successful
+     */
     Boolean changePassword(String username, String password, String newPassword);
 
+    /**
+     * Gets user from db by username if there is one
+     *
+     * @param username the username to be searched in the db
+     * @return optional User
+     */
     Optional<UserModel> getUserByName(String username);
 }

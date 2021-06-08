@@ -14,7 +14,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<Boolean> createUser(@RequestBody UserModel user) {
-        return ResponseEntity.ok(userService.saveUser(user));
+        return ResponseEntity.ok(userService.insertUser(user));
     }
 
     @PutMapping

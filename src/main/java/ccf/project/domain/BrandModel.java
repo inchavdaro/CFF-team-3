@@ -1,7 +1,6 @@
 package ccf.project.domain;
 
 
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
@@ -19,9 +18,8 @@ public class BrandModel {
     @Column(length = 30, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "brandByBrandId")
-    private Collection<ProductModel> productsById;
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "brandByBrandId")
+    private Collection<ProductModel> products;
 
     public int getId() {
         return id;
@@ -53,10 +51,10 @@ public class BrandModel {
     }
 
     public Collection<ProductModel> getProductsById() {
-        return productsById;
+        return products;
     }
 
     public void setProductsById(Collection<ProductModel> productsById) {
-        this.productsById = productsById;
+        this.products = productsById;
     }
 }

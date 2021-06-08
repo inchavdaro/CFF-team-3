@@ -16,12 +16,12 @@ public class BrandController
 
     @GetMapping(value ="/{name}", produces = "application/json")
     public ResponseEntity<BrandModel> findByName(@PathVariable String name){
-        return ResponseEntity.of(brandService.findByName(name));
+        return ResponseEntity.of(brandService.getByName(name));
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<BrandModel> insertBrand(@RequestBody BrandModel model){
-        return ResponseEntity.ok(brandService.save(model));
+        return ResponseEntity.ok(brandService.insertBrand(model));
     }
 
     @PutMapping("/{name}")

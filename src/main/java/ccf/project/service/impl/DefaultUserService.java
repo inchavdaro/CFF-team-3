@@ -22,7 +22,7 @@ public class DefaultUserService implements UserDetailsService, UserService {
     PasswordEncoder encoder;
 
     @Override
-    public Boolean saveUser(UserModel userModel) {
+    public Boolean insertUser(UserModel userModel) {
         userModel.setPass(encoder.encode(userModel.getPass()));
         userRepository.save(userModel);
         return true;

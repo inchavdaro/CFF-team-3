@@ -5,7 +5,6 @@ import ccf.project.domain.UserModel;
 import ccf.project.domain.enums.UserRole;
 import ccf.project.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +43,7 @@ public class SalesmanServiceTest {
         salesmanModel.setEmail("test@test.com");
         salesmanModel.setUser(salesmanUser);
 
-        SalesmanModel created = salesmanService.createSalesman(salesmanModel);
+        SalesmanModel created = salesmanService.insertSalesman(salesmanModel);
 
         Assertions.assertNotNull(created);
     }
@@ -56,7 +55,7 @@ public class SalesmanServiceTest {
         salesmanModel.setEmail("test@test.com");
         salesmanModel.setUser(salesmanUser);
 
-        SalesmanModel created = salesmanService.createSalesman(salesmanModel);
+        SalesmanModel created = salesmanService.insertSalesman(salesmanModel);
         Optional<SalesmanModel> salesmanOpt = salesmanService.getById(created.getId());
 
         Assertions.assertTrue(salesmanOpt.isPresent());
@@ -70,7 +69,7 @@ public class SalesmanServiceTest {
         salesmanModel.setEmail("test@test.com");
         salesmanModel.setUser(salesmanUser);
 
-        SalesmanModel created = salesmanService.createSalesman(salesmanModel);
+        SalesmanModel created = salesmanService.insertSalesman(salesmanModel);
         Optional<SalesmanModel> salesmanOpt = salesmanService.getByUserId(salesmanUser.getId());
 
         Assertions.assertTrue(salesmanOpt.isPresent());
@@ -84,7 +83,7 @@ public class SalesmanServiceTest {
         salesmanModel.setEmail("test@test.com");
         salesmanModel.setUser(salesmanUser);
 
-        SalesmanModel created = salesmanService.createSalesman(salesmanModel);
+        SalesmanModel created = salesmanService.insertSalesman(salesmanModel);
         Page<SalesmanModel> salesmanOpt = salesmanService.getAll();
 
         Assertions.assertFalse(salesmanOpt.isEmpty());
@@ -98,7 +97,7 @@ public class SalesmanServiceTest {
         salesmanModel.setEmail("test@test.com");
         salesmanModel.setUser(salesmanUser);
 
-        SalesmanModel created = salesmanService.createSalesman(salesmanModel);
+        SalesmanModel created = salesmanService.insertSalesman(salesmanModel);
         Page<SalesmanModel> salesmanOpt = salesmanService.getAll(0,10);
 
         Assertions.assertFalse(salesmanOpt.isEmpty());
