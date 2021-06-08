@@ -1,8 +1,8 @@
 package ccf.project.service;
 
-import ccf.project.domain.SaleModel;
-import ccf.project.domain.SalesmanModel;
-import ccf.project.repository.ClientRepository;
+import ccf.project.domain.*;
+import ccf.project.domain.enums.UserRole;
+import ccf.project.repository.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,27 +16,71 @@ import java.sql.Timestamp;
 public class SaleServiceTest {
     private SaleService saleService;
     private ClientRepository clientRepository;
+    private BrandRepository brandRepository;
+    private SalesmanRepository salesmanRepository;
+    private ProductTypeRepository productTypeRepository;
+    private UserRepository userRepository;
+    private ProductRepository productRepository;
+
+    @Autowired
+    public SaleServiceTest(SaleService saleService, ClientRepository clientRepository, BrandRepository brandRepository, SalesmanRepository salesmanRepository, ProductTypeRepository productTypeRepository, UserRepository userRepository, ProductRepository productRepository) {
+        this.saleService = saleService;
+        this.clientRepository = clientRepository;
+        this.brandRepository = brandRepository;
+        this.salesmanRepository = salesmanRepository;
+        this.productTypeRepository = productTypeRepository;
+        this.userRepository = userRepository;
+        this.productRepository = productRepository;
+    }
+
 
     @BeforeEach
     private void setup(){
 
-        SaleModel sale1 = new SaleModel();
-        SaleModel sale2 = new SaleModel();
+        SaleModel sale = new SaleModel();
 
-        sale1.setSalePrice(1.0);
-        sale2.setSalePrice(2.0);
+        BrandModel setupBrand = new BrandModel();
+        setupBrand.setName("ASUS");
+        setupBrand = brandRepository.save(setupBrand);
+        ProductTypeModel setupType = new ProductTypeModel();
+        setupType.setType("videocard");
+        setupType = productTypeRepository.save(setupType);
+        ProductModel productModel = new ProductModel();
+        productModel.setBrand(setupBrand);
+        productModel.setProductType(setupType);
+        productModel = productRepository.save(productModel);
 
-        sale1.setDate(Timestamp.valueOf("2021-06-05 10:10:10.0"));
-        sale2.setDate(Timestamp.valueOf("2007-06-04 10:10:10.0"));
+        sale.setProduct(productModel);
 
-        saleService.insert(sale1);
-        saleService.insert(sale2);
+        UserModel u1 = new UserModel();
+        u1.setUsername("test");
+        u1.setPass("test");
+        u1.setRole(UserRole.SALESMAN);
+        //UserModel u2 = userRepository.save(u1);
+
+        SalesmanModel salesmanModel = new SalesmanModel();
+        salesmanModel.setFullname("Test Test");
+        salesmanModel.setEmail("test@test.com");
+        salesmanModel.setUser(u1);
+        SalesmanModel created = salesmanRepository.save(salesmanModel);
+        sale.setSalesmanBySalesmanId(created);
+
+        ClientModel clientModel = new ClientModel();
+        clientModel = clientRepository.save(clientModel);
+        sale.setClient(clientModel);
+
+        sale.setSalePrice(1.0);
+        sale.setDate(Timestamp.valueOf("2021-06-05 10:10:10.0"));
+        saleService.insert(sale);
+
     }
 
     @Test
     public void givenCorrectSalesInDatabase_whenQuery_displayedCorrectly(){
         Page<SaleModel> salePage = saleService.getByDate(Timestamp.valueOf("2021-06-05 10:10:10.0"), PageRequest.of(0, 1));
-        Assertions.assertEquals(1.0, salePage.getContent().get(0));
+        Assertions.assertEquals(1.0, salePage.getContent().get(0).getSalePrice());
+        Assertions.assertEquals("videocard", salePage.getContent().get(0).getProduct().getProductType().getType());
+        Assertions.assertEquals("ASUS", salePage.getContent().get(0).getProduct().getBrand().getName());
     }
 
 }
