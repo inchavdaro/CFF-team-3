@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+
+import javax.transaction.Transactional;
 import java.sql.Timestamp;
 
 @SpringBootTest
@@ -76,6 +78,7 @@ public class SaleServiceTest {
     }
 
     @Test
+    @Transactional
     public void givenCorrectSalesInDatabase_whenQuery_displayedCorrectly(){
         Page<SaleModel> salePage = saleService.getByDate(Timestamp.valueOf("2021-06-05 10:10:10.0"), PageRequest.of(0, 1));
         Assertions.assertEquals(1.0, salePage.getContent().get(0).getSalePrice());
