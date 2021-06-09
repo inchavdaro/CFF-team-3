@@ -6,11 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProductTypeRepository extends JpaRepository<ProductTypeModel, Integer> {
 
-    ProductTypeModel findByType(String type);
+    Optional<ProductTypeModel> findByType(String type);
 
     List<ProductTypeModel> findAll();
 

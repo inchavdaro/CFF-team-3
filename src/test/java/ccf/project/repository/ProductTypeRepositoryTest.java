@@ -26,8 +26,8 @@ public class ProductTypeRepositoryTest {
         pm2.setType("videocard5");
         productTypeRepository.save(pm);
         productTypeRepository.save(pm2);
-        Assertions.assertEquals(productTypeRepository.findByType("videocard3"), pm);
-        Assertions.assertEquals(productTypeRepository.findByType("videocard5"), pm2);
+        Assertions.assertEquals(productTypeRepository.findByType("videocard3").get(), pm);
+        Assertions.assertEquals(productTypeRepository.findByType("videocard5").get(), pm2);
     }
 
     @Test
@@ -37,6 +37,6 @@ public class ProductTypeRepositoryTest {
         pm.setType("videocard");
         productTypeRepository.save(pm);
         productTypeRepository.deleteByType("videocard");
-        Assertions.assertEquals(productTypeRepository.findByType("videocard"), null);
+        Assertions.assertEquals(productTypeRepository.findByType("videocard"), Optional.empty());
     }
 }

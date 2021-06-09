@@ -6,11 +6,11 @@ import java.util.Optional;
 
 public interface ProductTypeService {
 
-    ProductTypeModel getTypeByName(String name);
+    Optional<ProductTypeModel> getTypeByName(String name);
 
     Optional<ProductTypeModel> deleteByName(String name);
 
-    ProductTypeModel insertType(String type);
+    ProductTypeModel insertType(ProductTypeModel type);
 
     List<ProductTypeModel> getAllTypes();
 }

@@ -16,7 +16,7 @@ public class ProductModel {
     private int id;
 
     @NotEmpty
-    @Column(length = 50)
+    @Column(length = 50, unique = true)
     private String model;
 
     private String description;
