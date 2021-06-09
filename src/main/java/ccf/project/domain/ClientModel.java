@@ -22,11 +22,11 @@ public class ClientModel {
     private String address;
 
     @NotEmpty
-    @Column(length = 30)
+    @Column(length = 30, unique = true)
     private String bulstat;
 
-    @OneToMany(mappedBy = "clientByClientId")
-    private Collection<SaleModel> salesById;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
+    private Collection<SaleModel> sales;
 
     public int getId() {
         return id;
@@ -75,11 +75,11 @@ public class ClientModel {
         return Objects.hash(id, name, address, bulstat);
     }
 
-    public Collection<SaleModel> getSalesById() {
-        return salesById;
+    public Collection<SaleModel> getSales() {
+        return sales;
     }
 
-    public void setSalesById(Collection<SaleModel> salesById) {
-        this.salesById = salesById;
+    public void setSales(Collection<SaleModel> salesById) {
+        this.sales = salesById;
     }
 }

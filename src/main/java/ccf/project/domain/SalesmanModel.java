@@ -1,12 +1,9 @@
 package ccf.project.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.util.Collection;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -26,7 +23,7 @@ public class SalesmanModel {
     @Column(unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "salesmanBySalesmanId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "salesman", fetch = FetchType.LAZY)
     private List<SaleModel> sales;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
