@@ -1,12 +1,8 @@
 package ccf.project.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,10 +17,6 @@ public class SalesmanModel {
     @NotEmpty
     @Column(length = 50)
     private String fullname;
-
-    @Email
-    @Column(unique = true)
-    private String email;
 
     @OneToMany(mappedBy = "salesman")
     private List<SaleModel> sales;
@@ -50,24 +42,7 @@ public class SalesmanModel {
     }
 
     public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SalesmanModel that = (SalesmanModel) o;
-        return id == that.id && Objects.equals(fullname, that.fullname) && Objects.equals(email, that.email);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, fullname, email);
+        return user.getEmail();
     }
 
     public List<SaleModel> getSales() {
