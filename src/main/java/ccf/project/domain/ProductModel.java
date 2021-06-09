@@ -34,7 +34,7 @@ public class ProductModel {
     @JoinColumn(name = "type_id", referencedColumnName = "id", nullable = false)
     private ProductTypeModel productType;
 
-    @OneToMany(mappedBy = "productByProductId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product")
     private Collection<SaleModel> sales;
 
     @Column(name = "id")
@@ -83,7 +83,7 @@ public class ProductModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductModel that = (ProductModel) o;
-        return /*id == that.id   &&*/ Double.compare(that.price, price) == 0 && Objects.equals(model, that.model) && Objects.equals(description, that.description) && Objects.equals(quantity, that.quantity);
+        return id == that.id   && Double.compare(that.price, price) == 0 && Objects.equals(model, that.model) && Objects.equals(description, that.description) && Objects.equals(quantity, that.quantity);
     }
 
     @Override

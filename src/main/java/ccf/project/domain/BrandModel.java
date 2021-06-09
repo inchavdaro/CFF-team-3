@@ -20,7 +20,7 @@ public class BrandModel {
     private String name;
 
     @OneToMany(mappedBy = "brand")
-    private Collection<ProductModel> productsById;
+    private Collection<ProductModel> products;
 
 
     public int getId() {
@@ -52,11 +52,11 @@ public class BrandModel {
         return Objects.hash(id, name);
     }
 
-    public Collection<ProductModel> getProductsById() {
-        return productsById;
+    public Collection<ProductModel> getProducts() {
+        return products;
     }
 
-    public void setProductsById(Collection<ProductModel> productsById) {
-        this.productsById = productsById;
+    public void setProducts(Collection<ProductModel> productsById) {
+        this.products = productsById;
     }
 }

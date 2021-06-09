@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface ProductRepository extends JpaRepository<ProductModel, Long> {
+public interface ProductRepository extends JpaRepository<ProductModel, Integer> {
 
     Optional<ProductModel> findByModel(String model);
     List<ProductModel> findAll();
@@ -18,10 +18,9 @@ public interface ProductRepository extends JpaRepository<ProductModel, Long> {
     List<ProductModel> findByPriceLessThanEqual(Double price);
     List<ProductModel> findByPriceGreaterThanEqual(Double price);
 
-
     List<ProductModel> deleteByBrand(BrandModel type);
     List<ProductModel> deleteByProductType(ProductTypeModel type);
-   List<ProductModel> deleteByModel(String type);
+    List<ProductModel> deleteByModel(String type);
 
 }
 

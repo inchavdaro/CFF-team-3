@@ -21,7 +21,7 @@ public class BrandController
 
     @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<BrandModel> insertBrand(@RequestBody BrandModel model){
-        return ResponseEntity.ok(brandService.insert(model));
+        return ResponseEntity.ok(brandService.save(model));
     }
 
     @PutMapping("/{name}")

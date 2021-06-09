@@ -29,7 +29,7 @@ public class DefaultBrandService implements BrandService {
     }
 
     @Override
-    public BrandModel insert(BrandModel brandModel){
+    public BrandModel save(BrandModel brandModel){
         return brandRepository.save(brandModel);
     }
 
