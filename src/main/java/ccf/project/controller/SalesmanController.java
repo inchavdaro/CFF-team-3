@@ -3,11 +3,14 @@ package ccf.project.controller;
 import ccf.project.domain.SalesmanModel;
 import ccf.project.service.SalesmanService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+import javax.websocket.server.PathParam;
 
 @RestController
 @Validated
@@ -26,7 +29,7 @@ public class SalesmanController {
             return ResponseEntity.badRequest().build();
         }
 
-        return ResponseEntity.ok(salesmanService.insertSalesman(salesmanModel));
+        return ResponseEntity.ok(salesmanService.createSalesman(salesmanModel));
     }
 
     @GetMapping("/{id}")

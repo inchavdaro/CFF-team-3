@@ -16,7 +16,7 @@ public class ProductModel {
     private int id;
 
     @NotEmpty
-    @Column(length = 50)
+    @Column(length = 50, unique = true)
     private String model;
 
     private String description;
@@ -28,14 +28,14 @@ public class ProductModel {
 
     @ManyToOne
     @JoinColumn(name = "brand_id", referencedColumnName = "id", nullable = false)
-    private BrandModel brandByBrandId;
+    private BrandModel brand;
 
     @ManyToOne
     @JoinColumn(name = "type_id", referencedColumnName = "id", nullable = false)
-    private ProductTypeModel productTypeByTypeId;
+    private ProductTypeModel productType;
 
     @OneToMany(mappedBy = "product")
-    private Collection<SaleModel> salesById;
+    private Collection<SaleModel> sales;
 
     @Column(name = "id")
     public int getId() {
@@ -92,28 +92,28 @@ public class ProductModel {
     }
 
 
-    public BrandModel getBrandByBrandId() {
-        return brandByBrandId;
+    public BrandModel getBrand() {
+        return brand;
     }
 
-    public void setBrandByBrandId(BrandModel brandByBrandId) {
-        this.brandByBrandId = brandByBrandId;
+    public void setBrand(BrandModel brandByBrandId) {
+        this.brand = brandByBrandId;
     }
 
 
-    public ProductTypeModel getProductTypeByTypeId() {
-        return productTypeByTypeId;
+    public ProductTypeModel getProductType() {
+        return productType;
     }
 
-    public void setProductTypeByTypeId(ProductTypeModel productTypeByTypeId) {
-        this.productTypeByTypeId = productTypeByTypeId;
+    public void setProductType(ProductTypeModel productTypeByTypeId) {
+        this.productType = productTypeByTypeId;
     }
 
-    public Collection<SaleModel> getSalesById() {
-        return salesById;
+    public Collection<SaleModel> getSales() {
+        return sales;
     }
 
-    public void setSalesById(Collection<SaleModel> salesById) {
-        this.salesById = salesById;
+    public void setSales(Collection<SaleModel> salesById) {
+        this.sales = salesById;
     }
 }

@@ -14,8 +14,8 @@ public class ProductTypeModel {
     @Column(unique = true)
     private String type;
 
-    @OneToMany(mappedBy = "productTypeByTypeId")
-    private Collection<ProductModel> productsById;
+    @OneToMany(mappedBy = "productType")
+    private Collection<ProductModel> products;
 
     public int getId() {
         return id;
@@ -48,11 +48,11 @@ public class ProductTypeModel {
     }
 
 
-    public Collection<ProductModel> getProductsById() {
-        return productsById;
+    public Collection<ProductModel> getProducts() {
+        return products;
     }
 
-    public void setProductsById(Collection<ProductModel> productsById) {
-        this.productsById = productsById;
+    public void setProducts(Collection<ProductModel> productsById) {
+        this.products = productsById;
     }
 }

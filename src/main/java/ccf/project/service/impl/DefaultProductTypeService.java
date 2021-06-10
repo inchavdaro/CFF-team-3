@@ -33,10 +33,8 @@ public class DefaultProductTypeService implements ProductTypeService {
     }
 
     @Override
-    public ProductTypeModel insertType(String name) {
-        ProductTypeModel pm = new ProductTypeModel();
-        pm.setType(name);
-        return productTypeRepository.save(pm);
+    public ProductTypeModel insertType(ProductTypeModel type) {
+        return productTypeRepository.save(type);
     }
 
     @Override
