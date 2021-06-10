@@ -18,7 +18,7 @@ public class BrandModel {
     @Column(length = 30, unique = true)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "brandByBrandId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "brand")
     private Collection<ProductModel> products;
 
     public int getId() {

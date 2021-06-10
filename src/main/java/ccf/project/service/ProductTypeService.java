@@ -26,8 +26,8 @@ public interface ProductTypeService {
 
     /**
      * Persists product type in the db
-     * @param type of the new type
      *
+     * @param type of the new type
      * @return Already persisted ProductTypeModel
      */
     ProductTypeModel insertType(ProductTypeModel type);

@@ -22,7 +22,7 @@ public class ProductTypeServiceTest {
     @Test
     @Transactional
     void givenCsvFileWithBrandsWhenInsertedThenGetCorrectResult() throws IOException {
-        File file = new ClassPathResource("brands.csv").getFile();
+        File file = new ClassPathResource("product_types.csv").getFile();
 
         List<ProductTypeModel> productTypeModels = productTypeService.insertFile(new FileInputStream(file));
 

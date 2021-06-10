@@ -3,8 +3,6 @@ package ccf.project.service.impl;
 import ccf.project.domain.BrandModel;
 import ccf.project.domain.ProductModel;
 import ccf.project.domain.ProductTypeModel;
-import ccf.project.repository.ProductRepository;
-import ccf.project.service.BrandService;
 import ccf.project.domain.dtos.ProductData;
 import ccf.project.repository.ProductRepository;
 import ccf.project.service.BrandService;
@@ -13,9 +11,6 @@ import ccf.project.service.ProductService;
 import ccf.project.service.ProductTypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
@@ -28,24 +23,29 @@ import java.util.Optional;
 public class DefaultProductService implements ProductService {
 
 
-    private ProductRepository productRepository;
-    private ProductTypeService productTypeService;
-    private BrandService brandService;
-
     private Logger logger = LoggerFactory.getLogger(DefaultProductService.class);
 
-    public DefaultProductService(ProductRepository productRepository, ProductTypeService productTypeService, BrandService brandService) {
+    private final ProductRepository productRepository;
+
+    private final CsvImportService csvImportService;
+
+    private final BrandService brandService;
+
+    private final ProductTypeService productTypeService;
+
+    public DefaultProductService(ProductRepository productRepository, CsvImportService csvImportService, BrandService brandService, ProductTypeService productTypeService) {
         this.productRepository = productRepository;
-        this.productTypeService = productTypeService;
+        this.csvImportService = csvImportService;
         this.brandService = brandService;
+        this.productTypeService = productTypeService;
     }
 
     @Override
-    public ProductModel insertProduct(String model,String type,String brand,String description,double price) {
+    public ProductModel insertProduct(String model, String type, String brand, String description, double price) {
         ProductModel toInsert = new ProductModel();
         toInsert.setModel(model);
         toInsert.setProductType(productTypeService.getTypeByName(type).stream().findFirst().orElse(null));
-        toInsert.setBrand(brandService.findByName(brand).stream().findFirst().orElse(null));
+        toInsert.setBrand(brandService.getByName(brand).stream().findFirst().orElse(null));
         toInsert.setDescription(description);
         toInsert.setPrice(price);
         return productRepository.save(toInsert);
@@ -63,7 +63,7 @@ public class DefaultProductService implements ProductService {
 
     @Override
     public List<ProductModel> getProductsByBrand(String brand) {
-        BrandModel brandModel = brandService.findByName(brand).orElseThrow(() -> {
+        BrandModel brandModel = brandService.getByName(brand).orElseThrow(() -> {
             logger.error("No brand with name " + brand + " !");
             return new IllegalArgumentException("No brand with name " + brand + " !");
         });
@@ -77,12 +77,12 @@ public class DefaultProductService implements ProductService {
             logger.error("No type with name " + type + " !");
             return new IllegalArgumentException("No type with name " + type + " !");
         });
-        return   productRepository.findProductModelByProductType(productTypeModel);
+        return productRepository.findProductModelByProductType(productTypeModel);
     }
 
     @Override
     public List<ProductModel> getProductsByBrandAndType(String brand, String type) {
-        BrandModel brandModel = brandService.findByName(brand).orElseThrow(() -> {
+        BrandModel brandModel = brandService.getByName(brand).orElseThrow(() -> {
             logger.error("No brand with name " + brand + " !");
             return new IllegalArgumentException("No brand with name " + brand + " !");
         });
@@ -92,7 +92,7 @@ public class DefaultProductService implements ProductService {
             return new IllegalArgumentException("No type with name " + type + " !");
         });
 
-        return productRepository.findByBrandAndProductType(brandModel,productTypeModel);
+        return productRepository.findByBrandAndProductType(brandModel, productTypeModel);
     }
 
     @Override
@@ -101,10 +101,14 @@ public class DefaultProductService implements ProductService {
     }
 
     @Override
-    public List<ProductModel> getProductsAbovePrice(double price) { return productRepository.findByPriceGreaterThanEqual(price); }
+    public List<ProductModel> getProductsAbovePrice(double price) {
+        return productRepository.findByPriceGreaterThanEqual(price);
+    }
 
     @Override
-    public Optional<ProductModel> getProductByModel(String model) { return productRepository.findByModel(model); }
+    public Optional<ProductModel> getProductByModel(String model) {
+        return productRepository.findByModel(model);
+    }
 
     @Override
     public List<ProductModel> deleteProductByModel(String model) {
@@ -113,7 +117,7 @@ public class DefaultProductService implements ProductService {
 
     @Override
     public List<ProductModel> deleteProductsByBrand(String brand) {
-        BrandModel brandModel = brandService.findByName(brand).orElseThrow(() -> {
+        BrandModel brandModel = brandService.getByName(brand).orElseThrow(() -> {
             logger.error("No brand with name " + brand + " !");
             return new IllegalArgumentException("No brand with name " + brand + " !");
         });
@@ -127,26 +131,6 @@ public class DefaultProductService implements ProductService {
             return new IllegalArgumentException("No type with name " + type + " !");
         });
         return productRepository.deleteByProductType(productTypeModel);
-    }
-
-
-public class DefaultProductService implements ProductService {
-
-    private Logger logger = LoggerFactory.getLogger(DefaultProductService.class);
-
-    private final ProductRepository productRepository;
-
-    private final CsvImportService csvImportService;
-
-    private final BrandService brandService;
-
-    private final ProductTypeService productTypeService;
-
-    public DefaultProductService(ProductRepository productRepository, CsvImportService csvImportService, BrandService brandService, ProductTypeService productTypeService) {
-        this.productRepository = productRepository;
-        this.csvImportService = csvImportService;
-        this.brandService = brandService;
-        this.productTypeService = productTypeService;
     }
 
     @Override
@@ -169,7 +153,7 @@ public class DefaultProductService implements ProductService {
     private void populateBrand(boolean strict, ProductData productData, ProductModel product) {
         Optional<BrandModel> brandOpt = brandService.getByName(productData.getBrand());
         if (brandOpt.isPresent()) {
-            product.setBrandByBrandId(brandOpt.get());
+            product.setBrand(brandOpt.get());
         } else if (strict) {
             String message = "Error occurred while inserting Product: brand not existing and mode set to strict";
             logger.error(message);
@@ -177,21 +161,22 @@ public class DefaultProductService implements ProductService {
         } else {
             BrandModel brandModel = new BrandModel();
             productData.setBrand(brandModel.getName());
-            product.setBrandByBrandId(brandService.insertBrand(brandModel));
+            product.setBrand(brandService.insertBrand(brandModel));
         }
     }
 
     private void populateProductType(boolean strict, ProductData productData, ProductModel product) {
         Optional<ProductTypeModel> typeOpt = productTypeService.getTypeByName(productData.getProductType());
         if (typeOpt.isPresent()) {
-            product.setProductTypeByTypeId(typeOpt.get());
+            product.setProductType(typeOpt.get());
         } else if (strict) {
             String message = "Error occurred while inserting Product: product type not existing and mode set to strict";
             logger.error(message);
             throw new IllegalArgumentException(message);
         } else {
-            ProductTypeModel productTypeModel = productTypeService.insertType(productData.getProductType());
-            product.setProductTypeByTypeId(productTypeModel);
+            ProductTypeModel productTypeModel = new ProductTypeModel();
+            productTypeModel.setType(productData.getProductType());
+            product.setProductType(productTypeService.insertType(productTypeModel));
         }
     }
 

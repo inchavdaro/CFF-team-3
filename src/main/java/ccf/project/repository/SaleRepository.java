@@ -15,8 +15,12 @@ import java.util.Optional;
 public interface SaleRepository extends JpaRepository<SaleModel, Long> {
 
     Page<SaleModel> getByClient_Id(Integer id, Pageable pageable);
+
     Page<SaleModel> getByDate(Timestamp date, Pageable pageable);
+
     Optional<SaleModel> getById(Integer id);
+
     Long deleteById(int id);
+
     Long deleteByClient(ClientModel clientModel);
 }

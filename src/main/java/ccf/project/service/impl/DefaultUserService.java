@@ -35,7 +35,7 @@ public class DefaultUserService implements UserDetailsService, UserService {
 
     @Override
     public Boolean changePassword(String username, String password, String newPassword) {
-        return userRepository.findByUsername(username).filter(user -> encoder.matches(password,user.getPass()))
+        return userRepository.findByUsername(username).filter(user -> encoder.matches(password, user.getPass()))
                 .map(user ->
                 {
                     user.setPass(encoder.encode(newPassword));

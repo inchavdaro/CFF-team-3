@@ -72,7 +72,7 @@ public class SaleModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SaleModel saleModel = (SaleModel) o;
-        return id == saleModel.id  && Objects.equals(date, saleModel.date) && Objects.equals(salePrice, saleModel.salePrice) && Objects.equals(quantity, saleModel.quantity);
+        return id == saleModel.id && Objects.equals(date, saleModel.date) && Objects.equals(salePrice, saleModel.salePrice) && Objects.equals(quantity, saleModel.quantity);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package ccf.project.service;
 
 import ccf.project.domain.BrandModel;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
 import java.util.List;
@@ -19,6 +18,7 @@ public interface BrandService {
 
     /**
      * Deletes brand from the db by name if such is present
+     *
      * @param name - to be searched by
      * @return number of rows affected
      */
@@ -26,8 +26,8 @@ public interface BrandService {
 
     /**
      * Persist a Brand in the db
-     * @param brandModel the BrandModel to be persisted
      *
+     * @param brandModel the BrandModel to be persisted
      * @return the already persistedModel
      */
     BrandModel insertBrand(BrandModel brandModel);
