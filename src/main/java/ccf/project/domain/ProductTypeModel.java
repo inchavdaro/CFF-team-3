@@ -9,7 +9,7 @@ import java.util.Objects;
 public class ProductTypeModel {
     @Id
     @GeneratedValue
-    private Integer id;
+    private int id;
 
     @Column(unique = true)
     private String type;
@@ -17,11 +17,11 @@ public class ProductTypeModel {
     @OneToMany(mappedBy = "productType")
     private Collection<ProductModel> products;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

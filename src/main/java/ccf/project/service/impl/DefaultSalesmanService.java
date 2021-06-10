@@ -20,7 +20,7 @@ public class DefaultSalesmanService implements SalesmanService {
     }
 
     @Override
-    public SalesmanModel createSalesman(SalesmanModel salesman) {
+    public SalesmanModel insertSalesman(SalesmanModel salesman) {
         return salesmanRepository.save(salesman);
     }
 

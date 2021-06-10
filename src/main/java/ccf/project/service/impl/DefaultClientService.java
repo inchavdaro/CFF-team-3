@@ -1,7 +1,6 @@
 package ccf.project.service.impl;
 
 import ccf.project.domain.ClientModel;
-import ccf.project.domain.SaleModel;
 import ccf.project.repository.ClientRepository;
 import ccf.project.repository.SaleRepository;
 import ccf.project.service.ClientService;
@@ -40,7 +39,6 @@ public class DefaultClientService implements ClientService {
 //        }
 //        return Page.empty();
 //    }
-
 
 
     @Override

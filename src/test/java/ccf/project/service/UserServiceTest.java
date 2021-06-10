@@ -24,7 +24,7 @@ public class UserServiceTest {
         u1.setPass("test");
         u1.setRole(UserRole.ADMIN);
 
-        Boolean result = userService.saveUser(u1);
+        Boolean result = userService.insertUser(u1);
         Assertions.assertTrue(result);
     }
 
@@ -35,7 +35,7 @@ public class UserServiceTest {
         u1.setUsername("test");
         u1.setPass("test");
         u1.setRole(UserRole.ADMIN);
-        userService.saveUser(u1);
+        userService.insertUser(u1);
 
         Optional<UserModel> userOpt = userService.getUserByName(u1.getUsername());
 
@@ -52,7 +52,7 @@ public class UserServiceTest {
         u1.setUsername("test");
         u1.setPass("test");
         u1.setRole(UserRole.ADMIN);
-        userService.saveUser(u1);
+        userService.insertUser(u1);
 
         Boolean result = userService.deleteUser(u1.getUsername());
 
@@ -66,7 +66,7 @@ public class UserServiceTest {
         u1.setUsername("test");
         u1.setPass("test");
         u1.setRole(UserRole.ADMIN);
-        userService.saveUser(u1);
+        userService.insertUser(u1);
 
         Boolean result = userService.changePassword(u1.getUsername(), "test", "newPass");
 

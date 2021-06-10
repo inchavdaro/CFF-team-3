@@ -11,15 +11,23 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<ProductModel, Integer> {
 
     Optional<ProductModel> findByModel(String model);
+
     List<ProductModel> findAll();
+
     List<ProductModel> findProductModelByProductType(ProductTypeModel type);
+
     List<ProductModel> findByBrand(BrandModel brand);
-    List<ProductModel> findByBrandAndProductType( BrandModel brand, ProductTypeModel type);
+
+    List<ProductModel> findByBrandAndProductType(BrandModel brand, ProductTypeModel type);
+
     List<ProductModel> findByPriceLessThanEqual(Double price);
+
     List<ProductModel> findByPriceGreaterThanEqual(Double price);
 
     List<ProductModel> deleteByBrand(BrandModel type);
+
     List<ProductModel> deleteByProductType(ProductTypeModel type);
+
     List<ProductModel> deleteByModel(String type);
 
 }

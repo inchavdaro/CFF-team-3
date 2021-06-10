@@ -22,26 +22,21 @@ public class SaleController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<SaleModel>> getPage(@RequestParam Integer clientId, @RequestParam @Min(0) Integer pageNumber, @RequestParam @Min(1) Integer salesPerPage){
+    public ResponseEntity<Page<SaleModel>> getPage(@RequestParam Integer clientId, @RequestParam @Min(0) Integer pageNumber, @RequestParam @Min(1) Integer salesPerPage) {
         return ResponseEntity.ok(saleService.getByClient(clientId, PageRequest.of(pageNumber, salesPerPage)));
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<SaleModel> insertSale(SaleModel sale){
+    public ResponseEntity<SaleModel> insertSale(SaleModel sale) {
         return ResponseEntity.ok(saleService.insert(sale));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> deleteById(@PathVariable int id){
+    public ResponseEntity<Long> deleteById(@PathVariable int id) {
         Long result = saleService.deleteById(id);
-        if(result == 0){
+        if (result == 0) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(result);
     }
-    // delete by client?
-    // findbyid?
-
-
-
 }

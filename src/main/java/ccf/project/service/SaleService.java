@@ -11,6 +11,7 @@ import java.util.Optional;
 public interface SaleService {
     /**
      * returns page of sales of given client
+     *
      * @param clientId
      * @param pageable
      * @return page of sales
@@ -19,6 +20,7 @@ public interface SaleService {
 
     /**
      * returns page of sales with given date
+     *
      * @param date
      * @param pageable
      * @return page of sales
@@ -29,6 +31,7 @@ public interface SaleService {
 
     /**
      * returns sale with given id
+     *
      * @param id
      * @return
      */
@@ -36,6 +39,7 @@ public interface SaleService {
 
     /**
      * saves a sale to the database
+     *
      * @param sale
      * @return
      */
@@ -43,6 +47,7 @@ public interface SaleService {
 
     /**
      * deletes a sale with given id
+     *
      * @param id
      * @return number of clients deleted
      */
@@ -50,6 +55,7 @@ public interface SaleService {
 
     /**
      * delete a client
+     *
      * @param clientModel
      * @return number of clients deleted
      */
