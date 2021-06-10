@@ -23,7 +23,7 @@ public class DefaultEmailService implements EmailService {
     }
 
     @Override
-    public void sendEmailsForLowerQuantity(List<ProductModel> productModels) {
+    public List<ProductModel> sendEmailsForLowerQuantity(List<ProductModel> productModels) {
         StringBuilder message = new StringBuilder();
 
         for (ProductModel productModel : productModels) {
@@ -33,16 +33,20 @@ public class DefaultEmailService implements EmailService {
         for (String adminEmail : userService.getAllAdminEmails()) {
             sendSimpleMessage(adminEmail, "Stock reducing", message.toString());
         }
+
+        return productModels;
     }
 
     @Override
-    public void sendEmailsForProductUpdate(ProductModel productModel) {
+    public ProductModel sendEmailsForProductUpdate(ProductModel productModel) {
         String message = String.format("Update for product %s ,new price : %n" + System.lineSeparator()
                 , productModel.getModel(), productModel.getQuantity());
 
         for (String salesmanEmail : userService.getAllSalesmanEmails()) {
             sendSimpleMessage(salesmanEmail, "Product update", message);
         }
+
+        return productModel;
     }
 
     private void sendSimpleMessage(String to, String subject, String text) {
