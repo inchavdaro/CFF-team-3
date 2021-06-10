@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
 
 @SpringBootTest
 public class ClientServiceTest {
@@ -62,10 +61,10 @@ public class ClientServiceTest {
 
         client1.setSales(sales);
 
-        clientService.save(client1);
-        clientService.save(client2);
-        clientService.save(client3);
-        clientService.save(client4);
+        clientService.insert(client1);
+        clientService.insert(client2);
+        clientService.insert(client3);
+        clientService.insert(client4);
     }
 
     @Test

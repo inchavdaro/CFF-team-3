@@ -1,13 +1,13 @@
 package ccf.project.service.impl;
 
 import ccf.project.domain.ClientModel;
-import ccf.project.domain.SaleModel;
 import ccf.project.repository.ClientRepository;
 import ccf.project.repository.SaleRepository;
 import ccf.project.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -41,19 +41,23 @@ public class DefaultClientService implements ClientService {
 //    }
 
 
-
     @Override
-    public Optional<ClientModel> findById(int id) {
+    public Optional<ClientModel> getById(int id) {
         return clientRepository.findById(id);
     }
 
     @Override
-    public Optional<ClientModel> findByBulstat(String bulstat) {
+    public Optional<ClientModel> getByBulstat(String bulstat) {
         return clientRepository.findByBulstat(bulstat);
     }
 
     @Override
-    public ClientModel save(ClientModel clientModel) {
+    public Page<ClientModel> getAll() {
+        return clientRepository.findAll(Pageable.unpaged());
+    }
+
+    @Override
+    public ClientModel insert(ClientModel clientModel) {
         return clientRepository.save(clientModel);
     }
 

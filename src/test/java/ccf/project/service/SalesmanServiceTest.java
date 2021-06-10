@@ -29,7 +29,7 @@ public class SalesmanServiceTest {
     @BeforeEach
     void setup() {
         UserModel userModel = new UserModel();
-        userModel.setEmail("test@test.com");
+        userModel.setUsername("test");
         userModel.setPass("test");
         userModel.setRole(UserRole.SALESMAN);
 
@@ -40,6 +40,7 @@ public class SalesmanServiceTest {
     void givenSalesmanModelWhenCreateSalesmanThenGetCorrectResult() {
         SalesmanModel salesmanModel = new SalesmanModel();
         salesmanModel.setFullname("Test Test");
+        salesmanModel.setEmail("test@test.com");
         salesmanModel.setUser(salesmanUser);
 
         SalesmanModel created = salesmanService.insertSalesman(salesmanModel);
@@ -51,6 +52,7 @@ public class SalesmanServiceTest {
     void givenInsertedSalesmanWhenGetByIdThenGetCorrectResult() {
         SalesmanModel salesmanModel = new SalesmanModel();
         salesmanModel.setFullname("Test Test");
+        salesmanModel.setEmail("test@test.com");
         salesmanModel.setUser(salesmanUser);
 
         SalesmanModel created = salesmanService.insertSalesman(salesmanModel);
@@ -64,6 +66,7 @@ public class SalesmanServiceTest {
     void givenInsertedSalesmanWhenGetByUserIdThenGetCorrectResult() {
         SalesmanModel salesmanModel = new SalesmanModel();
         salesmanModel.setFullname("Test Test");
+        salesmanModel.setEmail("test@test.com");
         salesmanModel.setUser(salesmanUser);
 
         SalesmanModel created = salesmanService.insertSalesman(salesmanModel);
@@ -77,6 +80,7 @@ public class SalesmanServiceTest {
     void givenInsertedSalesmanWhenGetAllThenGetCorrectResult() {
         SalesmanModel salesmanModel = new SalesmanModel();
         salesmanModel.setFullname("Test Test");
+        salesmanModel.setEmail("test@test.com");
         salesmanModel.setUser(salesmanUser);
 
         SalesmanModel created = salesmanService.insertSalesman(salesmanModel);
@@ -90,6 +94,7 @@ public class SalesmanServiceTest {
     void givenInsertedSalesmanWhenGetByPageThenGetCorrectResult() {
         SalesmanModel salesmanModel = new SalesmanModel();
         salesmanModel.setFullname("Test Test");
+        salesmanModel.setEmail("test@test.com");
         salesmanModel.setUser(salesmanUser);
 
         SalesmanModel created = salesmanService.insertSalesman(salesmanModel);

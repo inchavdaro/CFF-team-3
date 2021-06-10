@@ -25,12 +25,12 @@ public interface ProductTypeService {
     Optional<ProductTypeModel> deleteByName(String name);
 
     /**
-     * Creates ProductType model with given name and persists it in the db
-     * @param name of the new type
+     * Persists product type in the db
      *
+     * @param type of the new type
      * @return Already persisted ProductTypeModel
      */
-    ProductTypeModel insertType(String name);
+    ProductTypeModel insertType(ProductTypeModel type);
 
     /**
      * Gets all persisted Product Types from the db in a list

@@ -1,7 +1,5 @@
 package ccf.project.domain.dtos;
 
-import com.sun.istack.NotNull;
-
 public class ProductData {
 
     private int id;

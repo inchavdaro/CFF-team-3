@@ -1,7 +1,6 @@
 package ccf.project.service.impl;
 
 import ccf.project.domain.UserModel;
-import ccf.project.domain.enums.UserRole;
 import ccf.project.repository.UserRepository;
 import ccf.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class DefaultUserService implements UserDetailsService, UserService {
@@ -33,12 +30,12 @@ public class DefaultUserService implements UserDetailsService, UserService {
 
     @Override
     public Boolean deleteUser(String username) {
-        return userRepository.deleteByEmail(username) > 0;
+        return userRepository.deleteByUsername(username) > 0;
     }
 
     @Override
     public Boolean changePassword(String username, String password, String newPassword) {
-        return userRepository.findByEmail(username).filter(user -> encoder.matches(password,user.getPass()))
+        return userRepository.findByUsername(username).filter(user -> encoder.matches(password, user.getPass()))
                 .map(user ->
                 {
                     user.setPass(encoder.encode(newPassword));
@@ -49,23 +46,13 @@ public class DefaultUserService implements UserDetailsService, UserService {
 
     @Override
     public Optional<UserModel> getUserByName(String name) {
-        return userRepository.findByEmail(name);
-    }
-
-    @Override
-    public List<String> getAllAdminEmails() {
-        return userRepository.findByRole(UserRole.ADMIN).stream().map(UserModel::getEmail).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<String> getAllSalesmanEmails() {
-        return userRepository.findByRole(UserRole.SALESMAN).stream().map(UserModel::getEmail).collect(Collectors.toList());
+        return userRepository.findByUsername(name);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByEmail(username)
-                .map(userModel -> User.builder().username(userModel.getEmail())
+        return userRepository.findByUsername(username)
+                .map(userModel -> User.builder().username(userModel.getUsername())
                         .password(userModel.getPass())
                         .roles(userModel.getRole().name()).build())
                 .orElseThrow(() -> new UsernameNotFoundException("User Name is not Found"));

@@ -24,22 +24,22 @@ public class DefaultSaleService implements SaleService {
 
 
     @Override
-    public Page<SaleModel> findByClient(int clientId, Pageable pageable) {
-        return saleRepository.findByClient_Id(clientId, pageable);
+    public Page<SaleModel> getByClient(int clientId, Pageable pageable) {
+        return saleRepository.getByClient_Id(clientId, pageable);
     }
 
     @Override
-    public Page<SaleModel> findByDate(Timestamp date, Pageable pageable) {
-        return saleRepository.findByDate(date, pageable);
+    public Page<SaleModel> getByDate(Timestamp date, Pageable pageable) {
+        return saleRepository.getByDate(date, pageable);
     }
 
     @Override
-    public Optional<SaleModel> findById(int id) {
-        return saleRepository.findById(id);
+    public Optional<SaleModel> getById(int id) {
+        return saleRepository.getById(id);
     }
 
     @Override
-    public SaleModel save(SaleModel sale) {
+    public SaleModel insert(SaleModel sale) {
         return saleRepository.save(sale);
     }
 

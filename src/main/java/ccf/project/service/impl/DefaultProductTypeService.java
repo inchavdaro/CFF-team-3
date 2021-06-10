@@ -23,25 +23,23 @@ public class DefaultProductTypeService implements ProductTypeService {
     }
 
     @Override
-    public Optional<ProductTypeModel> getTypeByName(String name){
+    public Optional<ProductTypeModel> getTypeByName(String name) {
         return productTypeRepository.findByType(name);
     }
 
     @Override
     public Optional<ProductTypeModel> deleteByName(String name) { //Returns one object or null because of unique in table
-            return productTypeRepository.deleteByType(name).stream().findAny();
+        return productTypeRepository.deleteByType(name).stream().findAny();
     }
 
     @Override
-    public ProductTypeModel insertType(String name) {
-        ProductTypeModel pm = new ProductTypeModel();
-        pm.setType(name);
-        return productTypeRepository.save(pm);
+    public ProductTypeModel insertType(ProductTypeModel type) {
+        return productTypeRepository.save(type);
     }
 
     @Override
     public List<ProductTypeModel> getAllTypes() {
-        return   productTypeRepository.findAll();
+        return productTypeRepository.findAll();
     }
 
     @Override

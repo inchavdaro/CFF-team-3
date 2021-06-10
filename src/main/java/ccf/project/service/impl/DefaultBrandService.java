@@ -1,14 +1,10 @@
 package ccf.project.service.impl;
 
 import ccf.project.domain.BrandModel;
-import ccf.project.domain.UserModel;
 import ccf.project.repository.BrandRepository;
-import ccf.project.repository.UserRepository;
 import ccf.project.service.BrandService;
 import ccf.project.service.CsvImportService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
 import java.util.List;
@@ -27,19 +23,17 @@ public class DefaultBrandService implements BrandService {
     }
 
     @Override
-    public Optional<BrandModel> getByName(String name)
-    {
+    public Optional<BrandModel> getByName(String name) {
         return brandRepository.findByName(name);
     }
 
     @Override
-    public Long deleteByName(String brand)
-    {
+    public Long deleteByName(String brand) {
         return brandRepository.deleteByName(brand);
     }
 
     @Override
-    public BrandModel insertBrand(BrandModel brandModel){
+    public BrandModel insertBrand(BrandModel brandModel) {
         return brandRepository.save(brandModel);
     }
 
