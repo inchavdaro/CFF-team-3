@@ -21,7 +21,7 @@ public interface SaleService {
     /**
      * returns page of sales with given date
      *
-     * @param date the date to be searched by
+     * @param date     the date to be searched by
      * @param pageable the page config
      * @return page of sales
      */

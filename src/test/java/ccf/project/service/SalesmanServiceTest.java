@@ -57,7 +57,7 @@ public class SalesmanServiceTest {
         Optional<SalesmanModel> salesmanOpt = salesmanService.getById(created.getId());
 
         Assertions.assertTrue(salesmanOpt.isPresent());
-        Assertions.assertEquals(created,salesmanOpt.get());
+        Assertions.assertEquals(created, salesmanOpt.get());
     }
 
     @Test
@@ -70,7 +70,7 @@ public class SalesmanServiceTest {
         Optional<SalesmanModel> salesmanOpt = salesmanService.getByUserId(salesmanUser.getId());
 
         Assertions.assertTrue(salesmanOpt.isPresent());
-        Assertions.assertEquals(created,salesmanOpt.get());
+        Assertions.assertEquals(created, salesmanOpt.get());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class SalesmanServiceTest {
         Page<SalesmanModel> salesmanOpt = salesmanService.getAll();
 
         Assertions.assertFalse(salesmanOpt.isEmpty());
-        Assertions.assertEquals(created,salesmanOpt.iterator().next());
+        Assertions.assertEquals(created, salesmanOpt.iterator().next());
     }
 
     @Test
@@ -93,10 +93,10 @@ public class SalesmanServiceTest {
         salesmanModel.setUser(salesmanUser);
 
         SalesmanModel created = salesmanService.insertSalesman(salesmanModel);
-        Page<SalesmanModel> salesmanOpt = salesmanService.getAll(0,10);
+        Page<SalesmanModel> salesmanOpt = salesmanService.getAll(0, 10);
 
         Assertions.assertFalse(salesmanOpt.isEmpty());
-        Assertions.assertEquals(created,salesmanOpt.iterator().next());
+        Assertions.assertEquals(created, salesmanOpt.iterator().next());
     }
 
 }

@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class DefaultCsvImportService implements CsvImportService {
 
-    private Logger logger = LoggerFactory.getLogger(DefaultCsvImportService.class);
+    private final Logger logger = LoggerFactory.getLogger(DefaultCsvImportService.class);
 
     public <T> List<T> loadObjectList(Class<T> type, InputStream file) {
         try {

@@ -15,14 +15,13 @@ import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
-public class BrandServiceTest
-{
+public class BrandServiceTest {
     @Autowired
     BrandService brandService;
 
     @Test
     @Transactional
-    public void testSaveAndFindBrand(){
+    public void testSaveAndFindBrand() {
 
         BrandModel toBeInserted = new BrandModel();
         BrandModel toBeInserted2 = new BrandModel();
@@ -47,9 +46,10 @@ public class BrandServiceTest
         Assertions.assertEquals(toBeInserted2, queryResult2.get());
         Assertions.assertEquals(toBeInserted3, queryResult3.get());
     }
+
     @Test
     @Transactional
-    public void testInsertAndDeleteBrand(){
+    public void testInsertAndDeleteBrand() {
 
         BrandModel toBeInserted = new BrandModel();
         BrandModel toBeInserted2 = new BrandModel();
@@ -92,11 +92,9 @@ public class BrandServiceTest
 
         List<BrandModel> brandModels = brandService.insertFile(new FileInputStream(file));
 
-        Assertions.assertEquals(5,brandModels.size());
+        Assertions.assertEquals(5, brandModels.size());
         for (BrandModel brandModel : brandModels) {
             Assertions.assertTrue(brandModel.getId() != 0);
         }
     }
-
-
 }

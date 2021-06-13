@@ -5,18 +5,18 @@ import ccf.project.domain.ProductModel;
 import ccf.project.domain.ProductTypeModel;
 import ccf.project.domain.dtos.ProductData;
 import ccf.project.repository.ProductRepository;
-import ccf.project.service.BrandService;
-import ccf.project.service.CsvImportService;
-import ccf.project.service.EmailService;
-import ccf.project.service.ProductService;
-import ccf.project.service.ProductTypeService;
+import ccf.project.service.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
+import org.springframework.stereotype.Service;
+
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 @Service
 
@@ -35,7 +35,7 @@ public class DefaultProductService implements ProductService {
   private final EmailService emailService;
 
   public DefaultProductService(ProductRepository productRepository, CsvImportService csvImportService,
-      BrandService brandService, ProductTypeService productTypeService, EmailService emailService) {
+                               BrandService brandService, ProductTypeService productTypeService, EmailService emailService) {
     this.productRepository = productRepository;
     this.csvImportService = csvImportService;
     this.brandService = brandService;
@@ -44,6 +44,10 @@ public class DefaultProductService implements ProductService {
   }
 
   @Override
+  @Caching(evict = {
+          @CacheEvict(value = "ProductsByBrand", key = "#brand"),
+          @CacheEvict(value = "ProductsByType", key = "#type")
+  })
   public ProductModel insertProduct(String model, String type, String brand, String description, double price) {
     ProductModel toInsert = new ProductModel();
     toInsert.setModel(model);
@@ -56,11 +60,19 @@ public class DefaultProductService implements ProductService {
   }
 
   @Override
+  @Caching(evict = {
+          @CacheEvict(value = "ProductsByBrand", key = "#product.brand"),
+          @CacheEvict(value = "ProductsByType", key = "#product.productType")
+  })
   public ProductModel insertProduct(ProductModel product) {
     return emailService.sendEmailsForProductUpdate(productRepository.save(product));
   }
 
   @Override
+  @Caching(evict = {
+          @CacheEvict(value = "ProductsByBrand", allEntries = true),
+          @CacheEvict(value = "ProductsByType", allEntries = true)
+  })
   public ProductModel updateProduct(ProductModel product) {
     return emailService.sendEmailsForProductUpdate(productRepository.save(product));
   }
@@ -71,6 +83,7 @@ public class DefaultProductService implements ProductService {
   }
 
   @Override
+  @Cacheable("ProductsByBrand")
   public List<ProductModel> getProductsByBrand(String brand) {
     BrandModel brandModel = brandService.getByName(brand).orElseThrow(() -> {
       logger.error("No brand with name " + brand + " !");
@@ -81,6 +94,7 @@ public class DefaultProductService implements ProductService {
 
 
   @Override
+  @Cacheable("ProductsByType")
   public List<ProductModel> getProductsByType(String type) {
     ProductTypeModel productTypeModel = productTypeService.getTypeByName(type).orElseThrow(() -> {
       logger.error("No type with name " + type + " !");
@@ -115,6 +129,7 @@ public class DefaultProductService implements ProductService {
   }
 
   @Override
+  @Cacheable("Products")
   public Optional<ProductModel> getProductByModel(String model) {
     return productRepository.findByModel(model);
   }

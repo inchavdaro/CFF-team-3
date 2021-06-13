@@ -4,6 +4,8 @@ import ccf.project.domain.ProductTypeModel;
 import ccf.project.repository.ProductTypeRepository;
 import ccf.project.service.CsvImportService;
 import ccf.project.service.ProductTypeService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
@@ -23,11 +25,13 @@ public class DefaultProductTypeService implements ProductTypeService {
     }
 
     @Override
+    @Cacheable("ProductTypes")
     public Optional<ProductTypeModel> getTypeByName(String name) {
         return productTypeRepository.findByType(name);
     }
 
     @Override
+    @CacheEvict(value = "ProductTypes", key = "#name")
     public Optional<ProductTypeModel> deleteByName(String name) { //Returns one object or null because of unique in table
         return productTypeRepository.deleteByType(name).stream().findAny();
     }

@@ -1,6 +1,7 @@
 package ccf.project.service;
 
 import ccf.project.domain.ProductModel;
+
 import java.util.List;
 
 public interface EmailService {
