@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 
@@ -19,7 +18,7 @@ public class ProductTypeRepositoryTest {
 
     @Test
     @Transactional
-    void insertIntoDatabase(){
+    void insertIntoDatabase() {
         ProductTypeModel pm = new ProductTypeModel();
         pm.setType("videocard3");
         ProductTypeModel pm2 = new ProductTypeModel();
@@ -32,7 +31,7 @@ public class ProductTypeRepositoryTest {
 
     @Test
     @Transactional
-    void deleteFromDatabase(){
+    void deleteFromDatabase() {
         ProductTypeModel pm = new ProductTypeModel();
         pm.setType("videocard");
         productTypeRepository.save(pm);

@@ -31,7 +31,7 @@ public class DefaultProductTypeService implements ProductTypeService {
     }
 
     @Override
-    @CacheEvict(value = "ProductTypes", key = "name")
+    @CacheEvict(value = "ProductTypes", key = "#name")
     public Optional<ProductTypeModel> deleteByName(String name) { //Returns one object or null because of unique in table
         return productTypeRepository.deleteByType(name).stream().findAny();
     }

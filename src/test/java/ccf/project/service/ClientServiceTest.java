@@ -6,14 +6,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 public class ClientServiceTest {
@@ -24,7 +25,7 @@ public class ClientServiceTest {
 
 
     @BeforeEach
-    private void testSetup(){
+    private void testSetup() {
         ClientModel client1 = new ClientModel();
         ClientModel client2 = new ClientModel();
         ClientModel client3 = new ClientModel();
@@ -33,7 +34,6 @@ public class ClientServiceTest {
         client2.setBulstat("bulstat2");
         client3.setBulstat("bulstat3");
         client4.setBulstat("bulstat4");
-
 
 
         Collection<SaleModel> sales = new ArrayList<>();
@@ -69,7 +69,7 @@ public class ClientServiceTest {
 
     @Test
     @Transactional
-    public void testSaveAndFindClient(){
+    public void testSaveAndFindClient() {
 
         Page<ClientModel> clientsPage = clientService.getPageOfClients(0, 4);
         List<ClientModel> clientsList = clientsPage.getContent();
@@ -82,7 +82,7 @@ public class ClientServiceTest {
 
     @Test
     @Transactional
-    public void testSaveAndDeleteClient(){
+    public void testSaveAndDeleteClient() {
 
         clientService.deleteByBulstat("bulstat1");
         clientService.deleteByBulstat("bulstat2");
@@ -104,11 +104,6 @@ public class ClientServiceTest {
 //        assertEquals(12.0, salesList.get(2).getSalePrice());
 //        assertEquals(13.0, salesList.get(3).getSalePrice());
 //    }
-
-
-
-
-
 
 
 }

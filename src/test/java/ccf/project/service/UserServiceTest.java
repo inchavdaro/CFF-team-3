@@ -29,8 +29,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void givenInsertedUserWhenGetUserThenReturnCorrectResult()
-    {
+    public void givenInsertedUserWhenGetUserThenReturnCorrectResult() {
         UserModel u1 = new UserModel();
         u1.setEmail("test@test.com");
         u1.setPass("test");
@@ -41,13 +40,12 @@ public class UserServiceTest {
 
         Assertions.assertTrue(userOpt.isPresent());
         UserModel user = userOpt.get();
-        Assertions.assertEquals(u1.getEmail(),user.getEmail());
-        Assertions.assertEquals(u1.getRole(),user.getRole());
+        Assertions.assertEquals(u1.getEmail(), user.getEmail());
+        Assertions.assertEquals(u1.getRole(), user.getRole());
     }
 
     @Test
-    public void givenInsertedUserWhenDeleteUserThenReturnCorrectResult()
-    {
+    public void givenInsertedUserWhenDeleteUserThenReturnCorrectResult() {
         UserModel u1 = new UserModel();
         u1.setEmail("test@test.com");
         u1.setPass("test");
@@ -60,8 +58,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void givenInsertedUserWhenChangePasswordThenReturnCorrectResult()
-    {
+    public void givenInsertedUserWhenChangePasswordThenReturnCorrectResult() {
         UserModel u1 = new UserModel();
         u1.setEmail("test@test.com");
         u1.setPass("test");

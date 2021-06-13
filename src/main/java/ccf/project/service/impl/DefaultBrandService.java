@@ -31,7 +31,7 @@ public class DefaultBrandService implements BrandService {
     }
 
     @Override
-    @CacheEvict(value = "Brands", key = "brand")
+    @CacheEvict(value = "Brands", key = "#brand")
     public Long deleteByName(String brand) {
         return brandRepository.deleteByName(brand);
     }

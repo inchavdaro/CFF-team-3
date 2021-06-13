@@ -10,7 +10,7 @@ public interface ClientService {
     /**
      * returns a page of clients
      *
-     * @param pageNumber the number of the page 0...n
+     * @param pageNumber     the number of the page 0...n
      * @param clientsPerPage the size of the page 0...n
      * @return page of clients
      */

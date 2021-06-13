@@ -16,13 +16,13 @@ import java.sql.Timestamp;
 
 @SpringBootTest
 public class SaleServiceTest {
-    private SaleService saleService;
-    private ClientRepository clientRepository;
-    private BrandRepository brandRepository;
-    private SalesmanRepository salesmanRepository;
-    private ProductTypeRepository productTypeRepository;
-    private UserRepository userRepository;
-    private ProductRepository productRepository;
+    private final SaleService saleService;
+    private final ClientRepository clientRepository;
+    private final BrandRepository brandRepository;
+    private final SalesmanRepository salesmanRepository;
+    private final ProductTypeRepository productTypeRepository;
+    private final UserRepository userRepository;
+    private final ProductRepository productRepository;
 
     @Autowired
     public SaleServiceTest(SaleService saleService, ClientRepository clientRepository, BrandRepository brandRepository, SalesmanRepository salesmanRepository, ProductTypeRepository productTypeRepository, UserRepository userRepository, ProductRepository productRepository) {
@@ -37,7 +37,7 @@ public class SaleServiceTest {
 
 
     @BeforeEach
-    private void setup(){
+    private void setup() {
 
         SaleModel sale = new SaleModel();
 
@@ -79,7 +79,7 @@ public class SaleServiceTest {
 
     @Test
     @Transactional
-    public void givenCorrectSalesInDatabase_whenQuery_displayedCorrectly(){
+    public void givenCorrectSalesInDatabase_whenQuery_displayedCorrectly() {
         Page<SaleModel> salePage = saleService.getByDate(Timestamp.valueOf("2021-06-05 10:10:10.0"), PageRequest.of(0, 1));
         Assertions.assertEquals(1.0, salePage.getContent().get(0).getSalePrice());
         Assertions.assertEquals("videocard", salePage.getContent().get(0).getProduct().getProductType().getType());

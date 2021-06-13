@@ -1,10 +1,8 @@
 package ccf.project.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "salesman")
