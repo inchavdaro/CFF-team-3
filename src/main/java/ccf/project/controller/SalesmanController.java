@@ -4,6 +4,7 @@ import ccf.project.domain.SalesmanModel;
 import ccf.project.service.SalesmanService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,7 @@ public class SalesmanController {
         this.salesmanService = salesmanService;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<SalesmanModel> createSalesman(@RequestBody SalesmanModel salesmanModel) {
         if (salesmanModel == null) {

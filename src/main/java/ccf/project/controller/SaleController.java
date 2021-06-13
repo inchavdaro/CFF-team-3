@@ -2,7 +2,6 @@ package ccf.project.controller;
 
 import ccf.project.domain.SaleModel;
 import ccf.project.service.SaleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +13,9 @@ import javax.validation.constraints.Min;
 @Controller
 @RequestMapping("/sales")
 public class SaleController {
-    SaleService saleService;
 
-    @Autowired
+    private final SaleService saleService;
+
     public SaleController(SaleService saleService) {
         this.saleService = saleService;
     }

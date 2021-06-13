@@ -14,7 +14,7 @@ public class ProductTypeModel {
     @Column(unique = true)
     private String type;
 
-    @OneToMany(mappedBy = "productType")
+    @OneToMany(mappedBy = "productType",cascade = CascadeType.ALL)
     private Collection<ProductModel> products;
 
     public int getId() {
