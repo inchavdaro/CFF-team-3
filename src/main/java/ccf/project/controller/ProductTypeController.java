@@ -3,8 +3,8 @@ package ccf.project.controller;
 
 import ccf.project.domain.ProductTypeModel;
 import ccf.project.service.ProductTypeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,10 +14,13 @@ import java.util.Optional;
 @Controller
 public class ProductTypeController {
 
-    @Autowired
-    ProductTypeService productTypeService;
+    private final ProductTypeService productTypeService;
 
+    public ProductTypeController(ProductTypeService productTypeService) {
+        this.productTypeService = productTypeService;
+    }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/{name}", produces = "application/json")
     public ResponseEntity<ProductTypeModel> findByName(@PathVariable String name) {
         return ResponseEntity.of(productTypeService.getTypeByName(name));
@@ -33,6 +36,7 @@ public class ProductTypeController {
         return ResponseEntity.ok(productTypeService.insertType(model));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{name}")
     public ResponseEntity<ProductTypeModel> deleteType(@PathVariable String name) {
         ProductTypeModel result = productTypeService.deleteByName(name).stream().findFirst().orElse(null);

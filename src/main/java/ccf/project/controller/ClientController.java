@@ -2,7 +2,6 @@ package ccf.project.controller;
 
 import ccf.project.domain.ClientModel;
 import ccf.project.service.ClientService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,6 @@ public class ClientController {
 
     ClientService clientService;
 
-    @Autowired
     public ClientController(ClientService clientService) {
         this.clientService = clientService;
     }
