@@ -4,6 +4,8 @@ import ccf.project.domain.BrandModel;
 import ccf.project.repository.BrandRepository;
 import ccf.project.service.BrandService;
 import ccf.project.service.CsvImportService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
@@ -23,11 +25,13 @@ public class DefaultBrandService implements BrandService {
     }
 
     @Override
+    @Cacheable("Brands")
     public Optional<BrandModel> getByName(String name) {
         return brandRepository.findByName(name);
     }
 
     @Override
+    @CacheEvict(value = "Brands", key = "brand")
     public Long deleteByName(String brand) {
         return brandRepository.deleteByName(brand);
     }
