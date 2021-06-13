@@ -55,14 +55,14 @@ public class SaleServiceTest {
         sale.setProduct(productModel);
 
         UserModel u1 = new UserModel();
-        u1.setUsername("test");
+        u1.setEmail("test@test.com");
         u1.setPass("test");
         u1.setRole(UserRole.SALESMAN);
         //UserModel u2 = userRepository.save(u1);
 
         SalesmanModel salesmanModel = new SalesmanModel();
         salesmanModel.setFullname("Test Test");
-        salesmanModel.setEmail("test@test.com");
+
         salesmanModel.setUser(u1);
         SalesmanModel created = salesmanRepository.save(salesmanModel);
         sale.setSalesmanBySalesmanId(created);

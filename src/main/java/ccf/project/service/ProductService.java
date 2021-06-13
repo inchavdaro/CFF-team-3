@@ -8,10 +8,23 @@ import java.util.Optional;
 
 public interface ProductService {
 
-
     ProductModel insertProduct(String model, String type, String brand, String description, double price);
 
+    /**
+     * Persists a ProductModel in the db
+     *
+     * @param product to be persisted
+     * @return already persisted model
+     */
     ProductModel insertProduct(ProductModel product);
+
+    /**
+     * Updated a existing entry in the db
+     *
+     * @param product to be updated
+     * @return already updated product model
+     */
+    ProductModel updateProduct(ProductModel product);
 
     List<ProductModel> getAllProducts();
 

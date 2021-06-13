@@ -18,11 +18,7 @@ public class SalesmanModel {
     @Column(length = 50)
     private String fullname;
 
-    @Email
-    @Column(unique = true)
-    private String email;
-
-    @OneToMany(mappedBy = "salesman", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "salesman")
     private List<SaleModel> sales;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -46,31 +42,14 @@ public class SalesmanModel {
     }
 
     public String getEmail() {
-        return email;
+        return user.getEmail();
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SalesmanModel that = (SalesmanModel) o;
-        return id == that.id && Objects.equals(fullname, that.fullname) && Objects.equals(email, that.email);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, fullname, email);
-    }
-
-    public List<SaleModel> getSalesById() {
+    public List<SaleModel> getSales() {
         return sales;
     }
 
-    public void setSalesById(List<SaleModel> salesById) {
+    public void setSales(List<SaleModel> salesById) {
         this.sales = salesById;
     }
 

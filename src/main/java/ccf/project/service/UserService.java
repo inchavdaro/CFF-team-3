@@ -3,6 +3,7 @@ package ccf.project.service;
 
 import ccf.project.domain.UserModel;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
@@ -39,4 +40,14 @@ public interface UserService {
      * @return optional User
      */
     Optional<UserModel> getUserByName(String username);
+
+    /**
+     * Gets list of all emails for all Users with ADMIN role
+     */
+    List<String> getAllAdminEmails();
+
+    /**
+     * Gets list of all emails for all Users with Salesman role
+     */
+    List<String> getAllSalesmanEmails();
 }

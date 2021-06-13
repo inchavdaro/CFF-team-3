@@ -3,6 +3,7 @@ package ccf.project.domain;
 import ccf.project.domain.enums.UserRole;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
@@ -14,9 +15,9 @@ public class UserModel {
     @GeneratedValue
     private int id;
 
-    @Size(max = 20)
-    @Column(length = 20, unique = true)
-    private String username;
+    @Email
+    @Column(unique = true)
+    private String email;
 
     @Size(min = 4)
     @Column(length = 100)
@@ -32,12 +33,12 @@ public class UserModel {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String username) {
+        this.email = username;
     }
 
     public String getPass() {
@@ -61,11 +62,11 @@ public class UserModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserModel userModel = (UserModel) o;
-        return id == userModel.id && role == userModel.role && Objects.equals(username, userModel.username) && Objects.equals(pass, userModel.pass);
+        return id == userModel.id && role == userModel.role && Objects.equals(email, userModel.email) && Objects.equals(pass, userModel.pass);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, pass, role);
+        return Objects.hash(id, email, pass, role);
     }
 }

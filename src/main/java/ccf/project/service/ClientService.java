@@ -10,8 +10,8 @@ public interface ClientService {
     /**
      * returns a page of clients
      *
-     * @param pageNumber
-     * @param clientsPerPage
+     * @param pageNumber the number of the page 0...n
+     * @param clientsPerPage the size of the page 0...n
      * @return page of clients
      */
     Page<ClientModel> getPageOfClients(int pageNumber, int clientsPerPage);
@@ -21,7 +21,7 @@ public interface ClientService {
     /**
      * returns a client model with given id
      *
-     * @param id
+     * @param id to be searched by
      * @return optional client
      */
     Optional<ClientModel> getById(int id);
@@ -29,7 +29,7 @@ public interface ClientService {
     /**
      * returns a client with given bulstat
      *
-     * @param bulstat
+     * @param bulstat to be searched by
      * @return optional client
      */
     Optional<ClientModel> getByBulstat(String bulstat);
@@ -44,15 +44,15 @@ public interface ClientService {
     /**
      * insert a client into the database
      *
-     * @param clientModel
-     * @return
+     * @param clientModel the client to be saved
+     * @return the already saved client
      */
     ClientModel insert(ClientModel clientModel);
 
     /**
      * delete a client with given id
      *
-     * @param id
+     * @param id the id to be searched by
      * @return number of entries deleted
      */
     Long deleteById(int id);
@@ -60,7 +60,7 @@ public interface ClientService {
     /**
      * delete a client with given bulstat
      *
-     * @param bulstat
+     * @param bulstat the bulstat to be searched by
      * @return number of entries deleted
      */
     Long deleteByBulstat(String bulstat);
