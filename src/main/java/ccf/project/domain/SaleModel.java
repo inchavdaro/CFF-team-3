@@ -25,15 +25,15 @@ public class SaleModel {
 
     @ManyToOne
     @JoinColumn(name = "salesman_id", referencedColumnName = "id", nullable = false)
-    private SalesmanModel salesmanBySalesmanId;
+    private SalesmanModel salesman;
 
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
-    private ProductModel productByProductId;
+    private ProductModel product;
 
     @ManyToOne
     @JoinColumn(name = "client_id", referencedColumnName = "id", nullable = false)
-    private ClientModel clientByClientId;
+    private ClientModel client;
 
     public int getId() {
         return id;
@@ -72,7 +72,7 @@ public class SaleModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SaleModel saleModel = (SaleModel) o;
-        return id == saleModel.id  && Objects.equals(date, saleModel.date) && Objects.equals(salePrice, saleModel.salePrice) && Objects.equals(quantity, saleModel.quantity);
+        return id == saleModel.id && Objects.equals(date, saleModel.date) && Objects.equals(salePrice, saleModel.salePrice) && Objects.equals(quantity, saleModel.quantity);
     }
 
     @Override
@@ -81,26 +81,26 @@ public class SaleModel {
     }
 
     public SalesmanModel getSalesmanBySalesmanId() {
-        return salesmanBySalesmanId;
+        return salesman;
     }
 
     public void setSalesmanBySalesmanId(SalesmanModel salesmanBySalesmanId) {
-        this.salesmanBySalesmanId = salesmanBySalesmanId;
+        this.salesman = salesmanBySalesmanId;
     }
 
-    public ProductModel getProductByProductId() {
-        return productByProductId;
+    public ProductModel getProduct() {
+        return product;
     }
 
-    public void setProductByProductId(ProductModel productByProductId) {
-        this.productByProductId = productByProductId;
+    public void setProduct(ProductModel productByProductId) {
+        this.product = productByProductId;
     }
 
-    public ClientModel getClientByClientId() {
-        return clientByClientId;
+    public ClientModel getClient() {
+        return client;
     }
 
-    public void setClientByClientId(ClientModel clientByClientId) {
-        this.clientByClientId = clientByClientId;
+    public void setClient(ClientModel client) {
+        this.client = client;
     }
 }

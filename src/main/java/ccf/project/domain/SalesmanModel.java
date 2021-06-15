@@ -1,10 +1,8 @@
 package ccf.project.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.util.Collection;
-import java.util.Objects;
+import java.util.List;
 
 @Entity
 @Table(name = "salesman")
@@ -18,13 +16,10 @@ public class SalesmanModel {
     @Column(length = 50)
     private String fullname;
 
-    @Email
-    private String email;
+    @OneToMany(mappedBy = "salesman")
+    private List<SaleModel> sales;
 
-    @OneToMany(mappedBy = "salesmanBySalesmanId")
-    private Collection<SaleModel> salesById;
-
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id", nullable = false)
     private UserModel user;
 
@@ -45,39 +40,22 @@ public class SalesmanModel {
     }
 
     public String getEmail() {
-        return email;
+        return user.getEmail();
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public List<SaleModel> getSales() {
+        return sales;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SalesmanModel that = (SalesmanModel) o;
-        return id == that.id && Objects.equals(fullname, that.fullname) && Objects.equals(email, that.email);
+    public void setSales(List<SaleModel> salesById) {
+        this.sales = salesById;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, fullname, email);
+    public int getUserId() {
+        return user.getId();
     }
 
-    public Collection<SaleModel> getSalesById() {
-        return salesById;
-    }
-
-    public void setSalesById(Collection<SaleModel> salesById) {
-        this.salesById = salesById;
-    }
-
-    public UserModel getUsersById() {
-        return user;
-    }
-
-    public void setUsersById(UserModel usersById) {
-        this.user = usersById;
+    public void setUser(UserModel user) {
+        this.user = user;
     }
 }

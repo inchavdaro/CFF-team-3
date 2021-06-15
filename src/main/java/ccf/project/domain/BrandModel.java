@@ -19,9 +19,8 @@ public class BrandModel {
     @Column(length = 30, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "brand")
-    private Collection<ProductModel> productsById;
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "brand",cascade = CascadeType.ALL)
+    private Collection<ProductModel> products;
 
     public int getId() {
         return id;
@@ -53,10 +52,10 @@ public class BrandModel {
     }
 
     public Collection<ProductModel> getProductsById() {
-        return productsById;
+        return products;
     }
 
     public void setProductsById(Collection<ProductModel> productsById) {
-        this.productsById = productsById;
+        this.products = productsById;
     }
 }

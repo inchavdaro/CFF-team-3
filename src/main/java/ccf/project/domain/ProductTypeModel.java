@@ -1,7 +1,5 @@
 package ccf.project.domain;
 
-import net.bytebuddy.implementation.bind.MethodDelegationBinder;
-
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -11,19 +9,19 @@ import java.util.Objects;
 public class ProductTypeModel {
     @Id
     @GeneratedValue
-    private Integer id;
+    private int id;
 
     @Column(unique = true)
     private String type;
 
-    @OneToMany(mappedBy = "productType",fetch = FetchType.LAZY)
-    private Collection<ProductModel> productsById;
+    @OneToMany(mappedBy = "productType",cascade = CascadeType.ALL)
+    private Collection<ProductModel> products;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -50,11 +48,11 @@ public class ProductTypeModel {
     }
 
 
-    public Collection<ProductModel> getProductsById() {
-        return productsById;
+    public Collection<ProductModel> getProducts() {
+        return products;
     }
 
-    public void setProductsById(Collection<ProductModel> productsById) {
-        this.productsById = productsById;
+    public void setProducts(Collection<ProductModel> productsById) {
+        this.products = productsById;
     }
 }

@@ -10,8 +10,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.ClassPathResource;
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,30 +28,31 @@ public class ProductServiceTest {
     @Autowired
     ProductService productService;
 
-    private BrandModel setupBrand1,setupBrand2,setupBrand3;
-    private ProductTypeModel setupType1,setupType2;
-    private ProductModel product1,product2,product3,product4;
+    private BrandModel setupBrand1, setupBrand2, setupBrand3;
+    private ProductTypeModel setupType1, setupType2;
+    private ProductModel product1, product2, product3, product4;
+
     @BeforeEach
-    void setup(){
+    void setup() {
         setupBrand1 = new BrandModel();
         setupBrand1.setName("Asus");
-        setupBrand1=brandRepository.save(setupBrand1);
+        setupBrand1 = brandRepository.save(setupBrand1);
 
         setupBrand2 = new BrandModel();
         setupBrand2.setName("MSI");
-        setupBrand2=brandRepository.save(setupBrand2);
+        setupBrand2 = brandRepository.save(setupBrand2);
 
         setupBrand3 = new BrandModel();
         setupBrand3.setName("AMD");
-        setupBrand3=brandRepository.save(setupBrand3);
+        setupBrand3 = brandRepository.save(setupBrand3);
 
         setupType1 = new ProductTypeModel();
         setupType1.setType("videocard");
-        setupType1=productTypeRepository.save(setupType1);
+        setupType1 = productTypeRepository.save(setupType1);
 
         setupType2 = new ProductTypeModel();
         setupType2.setType("processor");
-        setupType2=productTypeRepository.save(setupType2);
+        setupType2 = productTypeRepository.save(setupType2);
 
         product1 = new ProductModel();
         product1.setModel("bestASUS4704GB");
@@ -90,22 +95,22 @@ public class ProductServiceTest {
 
     @Test
     @Transactional
-    public void testInsertAndFindProduct(){
+    public void testInsertAndFindProduct() {
 
 
-        Assertions.assertEquals(productService.getProductByModel("bestASUS4704GB").get(),product1);
-        Assertions.assertEquals(productService.getProductByModel("bestASUS4808GB").get(),product2);
-
+        Assertions.assertEquals(productService.getProductByModel("bestASUS4704GB").get(), product1);
+        Assertions.assertEquals(productService.getProductByModel("bestASUS4808GB").get(), product2);
 
 
     }
+
     @Test
     @Transactional
-    public void testInsertAndDeleteProduct(){
+    public void testInsertAndDeleteProduct() {
 
 
         Assertions.assertEquals(productService.deleteProductByModel("bestASUS4704GB"), List.of(product1));
-        Assertions.assertEquals(productService.deleteProductByModel("bestASUS4808GB"),List.of(product2));
+        Assertions.assertEquals(productService.deleteProductByModel("bestASUS4808GB"), List.of(product2));
         Assertions.assertEquals(productService.getProductByModel("bestASUS4704GB"), Optional.empty());
         Assertions.assertEquals(productService.getProductByModel("bestASUS4808GB"), Optional.empty());
 
@@ -113,9 +118,9 @@ public class ProductServiceTest {
 
     @Test
     @Transactional
-    public void testInsertAndDeleteProductsByBrand(){
-        Assertions.assertEquals(productService.deleteProductsByBrand("Asus"),List.of(product2));
-        Assertions.assertEquals(productService.deleteProductsByBrand("MSI"),List.of(product1));
+    public void testInsertAndDeleteProductsByBrand() {
+        Assertions.assertEquals(productService.deleteProductsByBrand("Asus"), List.of(product2));
+        Assertions.assertEquals(productService.deleteProductsByBrand("MSI"), List.of(product1));
         Assertions.assertEquals(productService.deleteProductsByBrand("Asus"), List.of());
         Assertions.assertEquals(productService.getProductsByBrand("MSI"), List.of());
         Assertions.assertEquals(productService.getProductsByBrand("AMD").size(), 2);
@@ -123,9 +128,21 @@ public class ProductServiceTest {
 
     @Test
     @Transactional
-    public void testInsertAndDeleteProductsByType(){
-        Assertions.assertEquals(productService.deleteProductsByType("videocard"),List.of(product1,product2));
-        Assertions.assertEquals(productService.deleteProductsByType("processor"),List.of(product3,product4));
+    public void testInsertAndDeleteProductsByType() {
+        Assertions.assertEquals(productService.deleteProductsByType("videocard"), List.of(product1, product2));
+        Assertions.assertEquals(productService.deleteProductsByType("processor"), List.of(product3, product4));
     }
 
+    @Test
+    @Transactional
+    void givenCsvFileWithProductsWhenInsertedThenGetCorrectResult() throws IOException {
+        File file = new ClassPathResource("products.csv").getFile();
+
+        List<ProductModel> productModels = productService.insertFile(new FileInputStream(file), false);
+
+        Assertions.assertEquals(5, productModels.size());
+        for (ProductModel productModel : productModels) {
+            Assertions.assertTrue(productModel.getId() != 0);
+        }
+    }
 }
