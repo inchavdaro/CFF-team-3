@@ -25,6 +25,8 @@ public class UserModel {
 
     private UserRole role;
 
+    
+
     public int getId() {
         return id;
     }

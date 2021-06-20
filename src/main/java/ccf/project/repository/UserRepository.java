@@ -15,4 +15,6 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
     Integer deleteByEmail(String username);
 
     List<UserModel> findByRole(UserRole role);
+
+
 }

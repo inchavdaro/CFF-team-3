@@ -135,6 +135,7 @@ public class DefaultProductService implements ProductService {
   }
 
   @Override
+  @CacheEvict(value = "Products", key = "#model")
   public List<ProductModel> deleteProductByModel(String model) {
     return productRepository.deleteByModel(model);
   }
