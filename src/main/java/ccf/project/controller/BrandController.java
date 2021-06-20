@@ -19,11 +19,12 @@ public class BrandController {
 
     @GetMapping(value = "/{name}", produces = "application/json")
     public ResponseEntity<BrandModel> findByName(@PathVariable String name) {
+
         return ResponseEntity.of(brandService.getByName(name));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping(consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/insertBrand",consumes = "application/json", produces = "application/json")
     public ResponseEntity<BrandModel> insertBrand(@RequestBody BrandModel model) {
         return ResponseEntity.ok(brandService.insertBrand(model));
     }

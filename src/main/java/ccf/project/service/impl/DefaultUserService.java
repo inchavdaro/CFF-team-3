@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,6 +25,23 @@ public class DefaultUserService implements UserDetailsService, UserService {
     @Autowired
     PasswordEncoder encoder;
 
+    @PostConstruct
+    private void postConstruct() {
+        UserModel admin = new UserModel();
+        admin.setRole(UserRole.ADMIN);
+        admin.setEmail("admin@place.holder");
+        admin.setPass("admin");
+        UserModel normalUser = new UserModel();
+        normalUser.setRole(UserRole.SALESMAN);
+        normalUser.setEmail("salesman@place.holder");
+        normalUser.setPass("salesman");
+        userRepository.save(admin);
+        System.out.println("ADDED ADMIN with pass:" + admin.getPass() + " and email:" + admin.getEmail() + "!!");
+        userRepository.save(normalUser);
+        System.out.println("ADDED SALESMAN with pass:" + normalUser.getPass() + " and email:" + normalUser.getEmail() + "!!");
+
+
+    }
     @Override
     public Boolean insertUser(UserModel userModel) {
         userModel.setPass(encoder.encode(userModel.getPass()));
